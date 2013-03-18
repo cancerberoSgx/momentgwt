@@ -12,7 +12,7 @@ import com.google.gwt.core.client.JsDate;
 /**
  * this is the moment instance - this is, the object that it's returned from js moment(). 
  * It also contains static methods for calling the moment() function. 
- * Note, javadocs copied from momentjs.com site
+ * Note, javadocs copied & compressed from momentjs.com site
  * @author sg
  *
  */
@@ -1208,7 +1208,7 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @return
  */
 public final native String from(Moment o)/*-{
-return this.fromNow(o); 
+return this.from(o); 
 }-*/;
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
 moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
@@ -1225,8 +1225,8 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @param o
  * @return
  */
-public final native String from(Moment o, boolean suffix)/*-{
-return this.fromNow(o); 
+public final native String from(Moment o, boolean noSuffix)/*-{
+return this.from(o, noSuffix); 
 }-*/;
 
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
@@ -1245,7 +1245,7 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @return
  */
 public final native String from(String o)/*-{
-return this.fromNow(o); 
+return this.from(o); 
 }-*/;
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
 moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
@@ -1262,8 +1262,8 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @param o
  * @return
  */
-public final native String from(String o, boolean suffix)/*-{
-return this.fromNow(o); 
+public final native String from(String o, boolean noSuffix)/*-{
+return this.from(o, noSuffix); 
 }-*/;
 
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
@@ -1282,7 +1282,7 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @return
  */
 public final native String from(double o)/*-{
-return this.fromNow(o); 
+return this.from(o); 
 }-*/;
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
 moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
@@ -1299,10 +1299,9 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @param o
  * @return
  */
-public final native String from(double o, boolean suffix)/*-{
-return this.fromNow(o); 
+public final native String from(double o, boolean noSuffix)/*-{
+return this.from(o, noSuffix); 
 }-*/;
-
 
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
 moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
@@ -1320,7 +1319,7 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @return
  */
 public final native String from(JavaScriptObject o)/*-{
-return this.fromNow(o); 
+return this.from(o); 
 }-*/;
 /**<div><pre>moment().from(Moment|String|Number|Date|Array);
 moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
@@ -1337,8 +1336,1231 @@ start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
  * @param o
  * @return
  */
-public final native String from(JavaScriptObject o, boolean suffix)/*-{
-return this.fromNow(o); 
+public final native String from(JavaScriptObject o, boolean noSuffix)/*-{
+return this.from(o, noSuffix); 
 }-*/;
 
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(JsArrayNumber o)/*-{
+return this.from(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(JsArrayNumber o, boolean noSuffix)/*-{
+return this.from(o, noSuffix); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(int[] o)/*-{
+return this.from(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(int[] o, boolean noSuffix)/*-{
+return this.from(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(o), noSuffix); 
+}-*/;
+
+
+
+/**
+ * <div><pre>moment().calendar();</pre><p>Calendar time is displays time relative to now, but slightly differently than <code>moment#fromNow</code>.</p><p><code>moment#calendar</code> will format a date with different strings depending on how close to today the date is.</p><table><tbody><tr><td>Last week</td><td>Last Monday 2:30 AM</td></tr><tr><td>The day before</td><td>Yesterday 2:30 AM</td></tr><tr><td>The same day</td><td>Today 2:30 AM</td></tr><tr><td>The next day</td><td>Tomorrow 2:30 AM</td></tr><tr><td>The next week</td><td>Sunday 2:30 AM</td></tr><tr><td>Everything else</td><td>7/10/2011</td></tr></tbody></table><p>These strings are localized, and <a>can be customized</a>.</p></div>
+ * @return
+ */
+public final native String calendar()/*-{
+return this.calendar(); 
+}-*/;
+
+
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+
+ * @param o
+ * @return
+ */
+public final native double diff(Moment o)/*-{
+return this.diff(o); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @return
+ */
+public final native double diff(Moment o, String type)/*-{
+return this.diff(o, type); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @param noRound
+ * @return
+ */
+public final native double diff(Moment o, String type, boolean noRound)/*-{
+return this.diff(o, type, noRound); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @return
+ */
+public final native double diff(JavaScriptObject o)/*-{
+return this.diff(o); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @return
+ */
+public final native double diff(JavaScriptObject o, String type)/*-{
+return this.diff(o, type); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @param noRound
+ * @return
+ */
+public final native double diff(JavaScriptObject o, String type, boolean noRound)/*-{
+return this.diff(o, type, noRound); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @return
+ */
+public final native double diff(double o)/*-{
+return this.diff(o); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @return
+ */
+public final native double diff(double o, String type)/*-{
+return this.diff(o, type); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @param noRound
+ * @return
+ */
+public final native double diff(double o, String type, boolean noRound)/*-{
+return this.diff(o, type, noRound); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @return
+ */
+public final native double diff(JsArrayNumber o)/*-{
+return this.diff(o); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @return
+ */
+public final native double diff(JsArrayNumber o, String type)/*-{
+return this.diff(o, type); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @param noRound
+ * @return
+ */
+public final native double diff(JsArrayNumber o, String type, boolean noRound)/*-{
+return this.diff(o, type, noRound); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @return
+ */
+public final native double diff(int[] o)/*-{
+return this.diff(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(o)); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @return
+ */
+public final native double diff(int[] o, String type)/*-{
+return this.diff(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(o), type); 
+}-*/;
+/**
+ * <div><pre>moment().diff(Moment|String|Number|Date|Array);
+moment().diff(Moment|String|Number|Date|Array, String);
+moment().diff(Moment|String|Number|Date|Array, String, Boolean);</pre><p>To get the difference in milliseconds, use <code>moment#diff</code> like you would use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b) <span>// 86400000</span></pre></div><p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.diff(b, <span>'days'</span>) <span>// 1</span></pre></div><p>The supported measurements are years, months, weeks, days, hours, minutes, and seconds. For ease of development, the singular forms are supported as of <strong>2.0.0</strong>. Units of measurement other than milliseconds are available in version <strong>1.1.1</strong>.</p><p>By default, <code>moment#diff</code> will return number rounded down. If you want the floating point number, pass <code>true</code> as the third argument. Before <strong>2.0.0</strong>, <code>moment#diff</code> returned rounded number, not a rounded <em>down</em> number.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>]);
+<span>var</span> b = moment([<span>2008</span>, <span>5</span>]);
+a.diff(b, <span>'years'</span>)       <span>// 1</span>
+a.diff(b, <span>'years'</span>, <span>true</span>) <span>// 1.5</span></pre></div><p>If the moment is later than the moment you are passing to <code>moment.fn.diff</code>, the return value will be negative.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment().add(<span>'seconds'</span>, <span>1</span>);
+a.diff(b) <span>// -1000</span>
+b.diff(a) <span>// 1000</span></pre></div><p>A easy way to think of this is by replacing <code>.diff(</code> with a minus operator.</p><div><pre><span>// a < b</span>
+a.diff(b) <span>// a - b < 0</span>
+b.diff(a) <span>// b - a < 0</span></pre></div><h4>Month and year diffs</h4><p><code>moment#diff</code> has some special handling for month and year diffs. It is optimized to ensure that two months with the same date are always a whole number apart.</p><p>So Jan 15 to Feb 15 should be exactly 1 month.</p><p>Feb 28 to Mar 28 should be exactly 1 month.</p><p>Feb 28 2011 to Feb 28 2012 should be exactly 1 year.</p><p><a>See more discussion on the month and year diffs here</a></p><p>This change to month and year diffs was made in <strong>2.0.0</strong>.</p></div>
+ * @param o
+ * @param type
+ * @param noRound
+ * @return
+ */
+public final native double diff(int[] o, String type, boolean noRound)/*-{
+return this.diff(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(o), type, noRound); 
+}-*/;
+/**
+ * Unix Offset (milliseconds)
+<div><pre>moment().valueOf();
++moment();</pre><p><code>moment#valueOf</code> simply outputs the number of milliseconds since the Unix Epoch, just like <code>Date#valueOf</code>.</p><div><pre>moment(<span>1318874398806</span>).valueOf(); <span>// 1318874398806</span>
++moment(<span>1318874398806</span>); <span>// 1318874398806</span></pre></div><p>To get a Unix timestamp (the number of seconds since the epoch) from a <code>Moment</code>, use <code>moment#unix</code>.</p></div>
+ * @return
+ */
+public final native int valueOf()/*-{
+return this.valueOf();
+}-*/;
+/**
+ * Unix Timestamp (seconds).moment#unix outputs a Unix timestamp (the of seconds since the Unix Epoch).
+<pre>moment(1318874398806).unix(); // 1318874398</pre>
+This value is floored to the nearest second, and does not include a milliseconds component.
+ * @return
+ */
+public final native int unix()/*-{
+return this.unix();
+}-*/;
+/**
+ * Timezone Offset. Get the timezone offset in minutes.
+<pre>moment().zone(); // (60, 120, 240, etc.)</pre>
+This value is floored to the nearest second, and does not include a milliseconds component.
+ * @return
+ */
+public final native int zone()/*-{
+return this.zone();
+}-*/;
+/**
+ * 
+Get the number of days in the current month.
+<pre>
+moment("2012-02", "YYYY-MM").daysInMonth() // 29
+moment("2012-01", "YYYY-MM").daysInMonth() // 31
+</pre>
+ * @return
+ */
+public final native int daysInMonth()/*-{
+return this.daysInMonth();
+}-*/;
+
+/**
+ * <pre>moment().toDate();</pre><p>To get the native Date object that Moment.js wraps, use <code>moment#toDate</code>.</p><p>This will return the <code>Date</code> that the moment uses, so any changes to that <code>Date</code> will cause the moment to change. If you want a <code>Date</code> that is a copy, use <code>moment#clone</code> before you use <code>moment#toDate</code>.</p><p><code>moment#native</code> has been replaced by <code>moment#toDate</code> and has been deprecated as of <strong>1.6.0</strong>.</p>
+ * @return
+ */
+public final native JsDate toDate()/*-{
+return this.toDate();
+}-*/;
+/**
+ * returns a java.util.Date
+ * @return
+ */
+public final native Date toJavaDate()/*-{
+return @org.sgx.jsutil.client.JsUtil::toJavaDate(Lcom/google/gwt/core/client/JsDate;)(this.toDate());
+}-*/;
+/**
+ * This returns an array that mirrors the parameters from new Date().
+<pre>moment().toArray(); // [2013, 1, 4, 14, 40, 16, 154];</pre>
+ * @return
+ */
+public final native JsArrayNumber toArray()/*-{
+	return this.toArray(); 
+}-*/;
+/**
+ * This returns an array that mirrors the parameters from new Date().
+<pre>moment().toArray(); // [2013, 1, 4, 14, 40, 16, 154];</pre>
+ * @return
+ */
+public final native int[] toArrayJava()/*-{
+return @org.sgx.jsutil.client.JsUtil::toJavaIntArray(Lcom/google/gwt/core/client/JsArrayNumber;)(this.toArray()); 
+}-*/;
+/**
+ * When serializing an object to JSON, if there is a Moment object, it will be represented as an ISO8601 string.
+JSON.stringify({
+    postDate : moment()
+}); // {"postDate":"2013-02-04T22:44:30.652Z"}
+ * @return
+ */
+public final native String toJSON()/*-{
+return this.toJSON(); 
+}-*/;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Queries
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(Moment m)/*-{
+return this.isBefore(m); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(Moment m, String g)/*-{
+return this.isBefore(m, g); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(String m)/*-{
+return this.isBefore(m); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(String m, String g)/*-{
+return this.isBefore(m, g); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(double m)/*-{
+return this.isBefore(m); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(double m, String g)/*-{
+return this.isBefore(m, g); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(JavaScriptObject m)/*-{
+return this.isBefore(m); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(JavaScriptObject m, String g)/*-{
+return this.isBefore(m, g); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(Date m)/*-{
+return this.isBefore(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m)); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(Date m, String g)/*-{
+return this.isBefore(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m), g); 
+}-*/;
+
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(JsArrayNumber m)/*-{
+return this.isBefore(m); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(JsArrayNumber m, String g)/*-{
+return this.isBefore(m, g); 
+}-*/;
+/**
+ * <pre>moment().isBefore(Moment|String|Number|Date|Array);
+moment().isBefore(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is before another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-10-21'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isBefore(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isBefore(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isSame</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isBefore</code>. Year, month, week, day, hour, minute, and second.</p>
+ * @return
+ */
+public final native boolean isBefore(int[] m, String g)/*-{
+return this.isBefore(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(m), g); 
+}-*/;
+
+
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(Moment m)/*-{
+return this.isSame(m); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(Moment m, String g)/*-{
+return this.isSame(m, g); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(String m)/*-{
+return this.isSame(m); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(String m, String g)/*-{
+return this.isSame(m, g); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(double m)/*-{
+return this.isSame(m); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(double m, String g)/*-{
+return this.isSame(m, g); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(JavaScriptObject m)/*-{
+return this.isSame(m); 
+}-*/;
+/**<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(JavaScriptObject m, String g)/*-{
+return this.isSame(m, g); 
+}-*/;
+/**
+ * <pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(Date m)/*-{
+return this.isSame(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m)); 
+}-*/;
+/**
+ *<pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(Date m, String g)/*-{
+return this.isSame(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m), g); 
+}-*/;
+
+/**
+ * <pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(JsArrayNumber m)/*-{
+return this.isSame(m); 
+}-*/;
+/**
+ * <pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p> 
+ */
+public final native boolean isSame(JsArrayNumber m, String g)/*-{
+return this.isSame(m, g); 
+}-*/;
+/**
+ * <pre>moment().isSame(Moment|String|Number|Date|Array);
+moment().isSame(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is the same as another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2010-10-20'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isSame(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2010-12-31'</span>, <span>'year'</span>); <span>// true</span>
+moment(<span>'2010-10-20'</span>).isSame(<span>'2011-01-01'</span>, <span>'year'</span>); <span>// false</span></pre></div><p>Like <code>moment#isAfter</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isSame</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isSame(int[] m, String g)/*-{
+return this.isSame(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(m), g); 
+}-*/;
+
+
+
+
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(Moment m)/*-{
+return this.isAfter(m); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(Moment m, String g)/*-{
+return this.isAfter(m, g); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(String m)/*-{
+return this.isAfter(m); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(String m, String g)/*-{
+return this.isAfter(m, g); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(double m)/*-{
+return this.isAfter(m); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(double m, String g)/*-{
+return this.isAfter(m, g); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+ */
+public final native boolean isAfter(JavaScriptObject m)/*-{
+return this.isAfter(m); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(JavaScriptObject m, String g)/*-{
+return this.isAfter(m, g); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(Date m)/*-{
+return this.isAfter(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m)); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(Date m, String g)/*-{
+return this.isAfter(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(m), g); 
+}-*/;
+
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(JsArrayNumber m)/*-{
+return this.isAfter(m); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(JsArrayNumber m, String g)/*-{
+return this.isAfter(m, g); 
+}-*/;
+/**<pre>moment().isAfter(Moment|String|Number|Date|Array);
+moment().isAfter(Moment|String|Number|Date|Array, String);</pre><p>Check if a moment is after another moment.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-10-19'</span>); <span>// true</span></pre></div><p>If you want to limit the granularity to a unit other than milliseconds, pass the units as the second parameter.</p><div><pre>moment(<span>'2010-10-20'</span>).isAfter(<span>'2010-01-01'</span>, <span>'year'</span>); <span>// false</span>
+moment(<span>'2010-10-20'</span>).isAfter(<span>'2009-12-31'</span>, <span>'year'</span>); <span>// true</span></pre></div><p>Like <code>moment#isSame</code> and <code>moment#isBefore</code>, any of the units of time that are supported for <code>moment#startOf</code> are supported for <code>moment#isAfter</code>. Year, month, week, day, hour, minute, and second.</p>
+*/
+public final native boolean isAfter(int[] m, String g)/*-{
+return this.isAfter(@org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(m), g); 
+}-*/;
+
+/**
+moment#isLeapYear returns true if that year is a leap year, and false if it is not.
+<pre>moment([2000]).isLeapYear() // true
+moment([2001]).isLeapYear() // false
+moment([2100]).isLeapYear() // false</pre>
+ * @return
+ */
+public final native boolean isLeapYear()/*-{
+return this.isLeapYear();
+}-*/;
+/**
+ * checks if the current moment is in daylight savings time.
+<pre>moment([2011, 2, 12]).isDST(); // false, March 12 2011 is not DST
+moment([2011, 2, 14]).isDST(); // true, March 14 2011 is DST</pre>
+ * @return
+ */
+public final native boolean isDST()/*-{
+return this.isDST();
+}-*/;
+/**
+To check if a variable is a moment object, use moment.isMoment().
+<pre>moment.isMoment() // false
+moment.isMoment(new Date()) // false
+moment.isMoment(moment()) // true</pre>
+ * @return
+ */
+public final native boolean isMoment(Object o)/*-{
+return $wnd.moment.isMoment(o);
+}-*/;
+
+/**
+ * Moment.js has pretty robust support for internationalization. You can load multiple languages and easily switch between them. In addition to assigning a global language, you can assign a language to a specific moment.
+ * <h2>Changing language globally 1.0.0</h2><p>By default, Moment.js comes with English language strings. If you need other languages, you can load them into Moment.js for later use.</p><p>To load a language, pass the key and the string values to <code>moment.lang</code>.</p><p>More details on each of the parts of the language bundle can be found in the <a>customization</a> section.</p><div><pre>moment.lang(<span>'fr'</span>, {
+    months : <span>"janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre"</span>.split(<span>"_"</span>),
+    monthsShort : <span>"janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc."</span>.split(<span>"_"</span>),
+    weekdays : <span>"dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi"</span>.split(<span>"_"</span>),
+    weekdaysShort : <span>"dim._lun._mar._mer._jeu._ven._sam."</span>.split(<span>"_"</span>),
+    weekdaysMin : <span>"Di_Lu_Ma_Me_Je_Ve_Sa"</span>.split(<span>"_"</span>),
+    longDateFormat : {
+        LT : <span>"HH:mm"</span>,
+        L : <span>"DD/MM/YYYY"</span>,
+        LL : <span>"D MMMM YYYY"</span>,
+        LLL : <span>"D MMMM YYYY LT"</span>,
+        LLLL : <span>"dddd D MMMM YYYY LT"</span>
+    },
+    calendar : {
+        sameDay: <span>"[Aujourd'hui à] LT"</span>,
+        nextDay: <span>'[Demain à] LT'</span>,
+        nextWeek: <span>'dddd [à] LT'</span>,
+        lastDay: <span>'[Hier à] LT'</span>,
+        lastWeek: <span>'dddd [dernier à] LT'</span>,
+        sameElse: <span>'L'</span>
+    },
+    relativeTime : {
+        future : <span>"dans %s"</span>,
+        past : <span>"il y a %s"</span>,
+        s : <span>"quelques secondes"</span>,
+        m : <span>"une minute"</span>,
+        mm : <span>"%d minutes"</span>,
+        h : <span>"une heure"</span>,
+        hh : <span>"%d heures"</span>,
+        d : <span>"un jour"</span>,
+        dd : <span>"%d jours"</span>,
+        M : <span>"un mois"</span>,
+        MM : <span>"%d mois"</span>,
+        y : <span>"une année"</span>,
+        yy : <span>"%d années"</span>
+    },
+    ordinal : <span><span>function</span><span>(number)</span> {</span><span>return</span> number + (number === <span>1</span> ? <span>'er'</span> : <span>'ème'</span>);
+    },
+    week : {
+        dow : <span>1</span>, <span>// Monday is the first day of the week.</span>
+        doy : <span>4</span><span>// The week that contains Jan 4th is the first week of the year.</span>
+    }
+});
+</pre></div><p>Once you load a language, it becomes the active language. To change active languages, simply call <code>moment.lang</code> with the key of a loaded language.</p><div><pre>moment.lang(<span>'fr'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// il y a une heure</span>
+moment.lang(<span>'en'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// an hour ago</span></pre></div>
+
+<h2>Changing language locally</h2>
+<p>A global language configuration can be problematic when passing around moments that may need to be formatted into different languages.</p><p>In <strong>1.7.0</strong> we added instance specific language configurations.</p><div><pre>moment.lang(<span>'en'</span>); <span>// default the language to English</span><span>var</span> globalLang = moment();
+<span>var</span> localLang = moment();
+
+localLang.lang(<span>'fr'</span>); <span>// set this instance to use French</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Sunday, July 15 2012 11:01 AM</span>
+
+moment.lang(<span>'es'</span>); <span>// change the global language to Spanish</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+
+localLang.lang(<span>false</span>); <span>// reset the instance language</span>
+localLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span></pre></div><p>If you call <code>moment#lang</code> with no parameters, you get back the language configuration that would be used for that moment.</p><div><pre><span>var</span> fr = moment().lang(<span>'fr'</span>);
+fr.lang().months <span>// ["janvier", "février", "mars", ...]</span>
+fr.lang(<span>'en'</span>);
+fr.lang().months <span>// ["January", "February", "March", ...]</span></pre></div><p>If you need to access the language data for a moment, this is the preferred way to do so.</p>
+ */
+public final native void lang_(String langId)/*-{
+this.lang(langId);
+}-*/;
+/**
+ * 
+ * @return this instance current lang id.
+ */
+public final native String lang_()/*-{
+this.lang();
+}-*/;
+/**
+ *  * Moment.js has pretty robust support for internationalization. You can load multiple languages and easily switch between them. In addition to assigning a global language, you can assign a language to a specific moment.
+ * <h2>Changing language globally 1.0.0</h2><p>By default, Moment.js comes with English language strings. If you need other languages, you can load them into Moment.js for later use.</p><p>To load a language, pass the key and the string values to <code>moment.lang</code>.</p><p>More details on each of the parts of the language bundle can be found in the <a>customization</a> section.</p><div><pre>moment.lang(<span>'fr'</span>, {
+    months : <span>"janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre"</span>.split(<span>"_"</span>),
+    monthsShort : <span>"janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc."</span>.split(<span>"_"</span>),
+    weekdays : <span>"dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi"</span>.split(<span>"_"</span>),
+    weekdaysShort : <span>"dim._lun._mar._mer._jeu._ven._sam."</span>.split(<span>"_"</span>),
+    weekdaysMin : <span>"Di_Lu_Ma_Me_Je_Ve_Sa"</span>.split(<span>"_"</span>),
+    longDateFormat : {
+        LT : <span>"HH:mm"</span>,
+        L : <span>"DD/MM/YYYY"</span>,
+        LL : <span>"D MMMM YYYY"</span>,
+        LLL : <span>"D MMMM YYYY LT"</span>,
+        LLLL : <span>"dddd D MMMM YYYY LT"</span>
+    },
+    calendar : {
+        sameDay: <span>"[Aujourd'hui à] LT"</span>,
+        nextDay: <span>'[Demain à] LT'</span>,
+        nextWeek: <span>'dddd [à] LT'</span>,
+        lastDay: <span>'[Hier à] LT'</span>,
+        lastWeek: <span>'dddd [dernier à] LT'</span>,
+        sameElse: <span>'L'</span>
+    },
+    relativeTime : {
+        future : <span>"dans %s"</span>,
+        past : <span>"il y a %s"</span>,
+        s : <span>"quelques secondes"</span>,
+        m : <span>"une minute"</span>,
+        mm : <span>"%d minutes"</span>,
+        h : <span>"une heure"</span>,
+        hh : <span>"%d heures"</span>,
+        d : <span>"un jour"</span>,
+        dd : <span>"%d jours"</span>,
+        M : <span>"un mois"</span>,
+        MM : <span>"%d mois"</span>,
+        y : <span>"une année"</span>,
+        yy : <span>"%d années"</span>
+    },
+    ordinal : <span><span>function</span><span>(number)</span> {</span><span>return</span> number + (number === <span>1</span> ? <span>'er'</span> : <span>'ème'</span>);
+    },
+    week : {
+        dow : <span>1</span>, <span>// Monday is the first day of the week.</span>
+        doy : <span>4</span><span>// The week that contains Jan 4th is the first week of the year.</span>
+    }
+});
+</pre></div><p>Once you load a language, it becomes the active language. To change active languages, simply call <code>moment.lang</code> with the key of a loaded language.</p><div><pre>moment.lang(<span>'fr'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// il y a une heure</span>
+moment.lang(<span>'en'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// an hour ago</span></pre></div>
+
+<h2>Changing language locally</h2>
+<p>A global language configuration can be problematic when passing around moments that may need to be formatted into different languages.</p><p>In <strong>1.7.0</strong> we added instance specific language configurations.</p><div><pre>moment.lang(<span>'en'</span>); <span>// default the language to English</span><span>var</span> globalLang = moment();
+<span>var</span> localLang = moment();
+
+localLang.lang(<span>'fr'</span>); <span>// set this instance to use French</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Sunday, July 15 2012 11:01 AM</span>
+
+moment.lang(<span>'es'</span>); <span>// change the global language to Spanish</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+
+localLang.lang(<span>false</span>); <span>// reset the instance language</span>
+localLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span></pre></div><p>If you call <code>moment#lang</code> with no parameters, you get back the language configuration that would be used for that moment.</p><div><pre><span>var</span> fr = moment().lang(<span>'fr'</span>);
+fr.lang().months <span>// ["janvier", "février", "mars", ...]</span>
+fr.lang(<span>'en'</span>);
+fr.lang().months <span>// ["January", "February", "March", ...]</span></pre></div><p>If you need to access the language data for a moment, this is the preferred way to do so.</p>
+
+ * @param o
+ * @return
+ */
+public static final native void lang(String langId, JavaScriptObject langDef)/*-{
+$wnd.moment.lang(langId, langDef);
+}-*/;
+/**
+ *  * Moment.js has pretty robust support for internationalization. You can load multiple languages and easily switch between them. In addition to assigning a global language, you can assign a language to a specific moment.
+ * <h2>Changing language globally 1.0.0</h2><p>By default, Moment.js comes with English language strings. If you need other languages, you can load them into Moment.js for later use.</p><p>To load a language, pass the key and the string values to <code>moment.lang</code>.</p><p>More details on each of the parts of the language bundle can be found in the <a>customization</a> section.</p><div><pre>moment.lang(<span>'fr'</span>, {
+    months : <span>"janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre"</span>.split(<span>"_"</span>),
+    monthsShort : <span>"janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc."</span>.split(<span>"_"</span>),
+    weekdays : <span>"dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi"</span>.split(<span>"_"</span>),
+    weekdaysShort : <span>"dim._lun._mar._mer._jeu._ven._sam."</span>.split(<span>"_"</span>),
+    weekdaysMin : <span>"Di_Lu_Ma_Me_Je_Ve_Sa"</span>.split(<span>"_"</span>),
+    longDateFormat : {
+        LT : <span>"HH:mm"</span>,
+        L : <span>"DD/MM/YYYY"</span>,
+        LL : <span>"D MMMM YYYY"</span>,
+        LLL : <span>"D MMMM YYYY LT"</span>,
+        LLLL : <span>"dddd D MMMM YYYY LT"</span>
+    },
+    calendar : {
+        sameDay: <span>"[Aujourd'hui à] LT"</span>,
+        nextDay: <span>'[Demain à] LT'</span>,
+        nextWeek: <span>'dddd [à] LT'</span>,
+        lastDay: <span>'[Hier à] LT'</span>,
+        lastWeek: <span>'dddd [dernier à] LT'</span>,
+        sameElse: <span>'L'</span>
+    },
+    relativeTime : {
+        future : <span>"dans %s"</span>,
+        past : <span>"il y a %s"</span>,
+        s : <span>"quelques secondes"</span>,
+        m : <span>"une minute"</span>,
+        mm : <span>"%d minutes"</span>,
+        h : <span>"une heure"</span>,
+        hh : <span>"%d heures"</span>,
+        d : <span>"un jour"</span>,
+        dd : <span>"%d jours"</span>,
+        M : <span>"un mois"</span>,
+        MM : <span>"%d mois"</span>,
+        y : <span>"une année"</span>,
+        yy : <span>"%d années"</span>
+    },
+    ordinal : <span><span>function</span><span>(number)</span> {</span><span>return</span> number + (number === <span>1</span> ? <span>'er'</span> : <span>'ème'</span>);
+    },
+    week : {
+        dow : <span>1</span>, <span>// Monday is the first day of the week.</span>
+        doy : <span>4</span><span>// The week that contains Jan 4th is the first week of the year.</span>
+    }
+});
+</pre></div><p>Once you load a language, it becomes the active language. To change active languages, simply call <code>moment.lang</code> with the key of a loaded language.</p><div><pre>moment.lang(<span>'fr'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// il y a une heure</span>
+moment.lang(<span>'en'</span>);
+moment(<span>1316116057189</span>).fromNow() <span>// an hour ago</span></pre></div>
+
+<h2>Changing language locally</h2>
+<p>A global language configuration can be problematic when passing around moments that may need to be formatted into different languages.</p><p>In <strong>1.7.0</strong> we added instance specific language configurations.</p><div><pre>moment.lang(<span>'en'</span>); <span>// default the language to English</span><span>var</span> globalLang = moment();
+<span>var</span> localLang = moment();
+
+localLang.lang(<span>'fr'</span>); <span>// set this instance to use French</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Sunday, July 15 2012 11:01 AM</span>
+
+moment.lang(<span>'es'</span>); <span>// change the global language to Spanish</span>
+localLang.format(<span>'LLLL'</span>); <span>// dimanche 15 juillet 2012 11:01</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+
+localLang.lang(<span>false</span>); <span>// reset the instance language</span>
+localLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span>
+globalLang.format(<span>'LLLL'</span>); <span>// Domingo 15 Julio 2012 11:03</span></pre></div><p>If you call <code>moment#lang</code> with no parameters, you get back the language configuration that would be used for that moment.</p><div><pre><span>var</span> fr = moment().lang(<span>'fr'</span>);
+fr.lang().months <span>// ["janvier", "février", "mars", ...]</span>
+fr.lang(<span>'en'</span>);
+fr.lang().months <span>// ["January", "February", "March", ...]</span></pre></div><p>If you need to access the language data for a moment, this is the preferred way to do so.</p>
+
+ * @param o
+ * @return
+ */
+public static final native void lang(String langId)/*-{
+$wnd.moment.lang(langId, langDef);
+}-*/;
+/**
+ * returns current lang id
+ * @return
+ */
+public static final native String lang()/*-{
+return $wnd.moment.lang();
+}-*/;
+
+
+
+
+
+
+
+
+
+
+//Duration
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration duration(int i)/*-{
+return $wnd.moment.duration(i);
+}-*/;
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration duration(int i, String s)/*-{
+return $wnd.moment.duration(i, s);
+}-*/;
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration duration(DurationData d)/*-{
+return $wnd.moment.duration(d);
+}-*/;
 }

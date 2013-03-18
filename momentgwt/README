@@ -1,1 +1,18 @@
 moment.js (momentjs.com) wrapper library for GWT.  
+
+Maven
+momentgwt depends on project gwtjsutil (http://code.google.com/p/gwtjsutil/). So for building 
+momentgwt we first need to install gwtjsutil library. Fortunately both projects use maven so we
+can do the entire thing like this: 
+
+#installing gwtjsutil - only once
+svn checkout http://gwtjsutil.googlecode.com/svn/trunk/ gwtjsutil-read-only
+cd gwtjsutil-read-only/gwtjsutil
+mvn install
+
+#installing momentgwt
+git clone git://github.com/cancerberoSgx/momentgwt.git
+cd momentgwt/momentgwt
+
+
+Buildin

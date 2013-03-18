@@ -7,8 +7,15 @@
 	<packaging>jar</packaging>
 	<version>1.0</version>
 	<name>momentjs GWT wrapper</name>
-	<url>http://code.google.com/p/momentgwt/</url>
-
+	<url>https://github.com/cancerberoSgx/momentgwt/</url>
+	
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+	
 	<properties>
 		<gwt.version>2.5.0</gwt.version>
 		<java.version>${java.specification.version}</java.version>
@@ -21,6 +28,19 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.sgx</groupId>
+			<artifactId>gwtjsutil</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>
