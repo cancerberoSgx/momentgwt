@@ -9,10 +9,20 @@ can do the entire thing like this:
 svn checkout http://gwtjsutil.googlecode.com/svn/trunk/ gwtjsutil-read-only
 cd gwtjsutil-read-only/gwtjsutil
 mvn install
+cd ../..
 
 #installing momentgwt
 git clone git://github.com/cancerberoSgx/momentgwt.git
 cd momentgwt/momentgwt
+mvn install
+cd ../..
 
+If everything is OK, then you should have the momentgwt.jar in momentgwt/momentgwt/target. 
 
-Buildin
+If you need to include momentgwt as a maven dependency: 
+
+<dependency>
+	<groupId>org.sgx</groupId>
+	<artifactId>momentgwt</artifactId>
+	<version>1.0</version>
+</dependency>
