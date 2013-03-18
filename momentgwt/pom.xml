@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                      
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.sgx</groupId>
+	<artifactId>momentgwt</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>momentjs GWT wrapper</name>
+	<url>http://code.google.com/p/momentgwt/</url>
+
+	<properties>
+		<gwt.version>2.5.0</gwt.version>
+		<java.version>${java.specification.version}</java.version>
+		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>${basedir}/src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		
+		
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.5.0</version>
+        <executions>
+          <execution>
+<!--             <configuration> -->
+<!--               <module>org.sgx.jsutil.JsUtil</module> -->
+<!--             </configuration> -->
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  <outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
+	</build>
+</project>
