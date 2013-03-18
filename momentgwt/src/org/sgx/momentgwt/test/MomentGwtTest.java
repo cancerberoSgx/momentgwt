@@ -15,7 +15,7 @@ public class MomentGwtTest implements EntryPoint {
 	}
 
 	private void test1() {
-		System.out.println(Moment.moment(new Date()).format("MMMM Do YYYY, h:mm:ss a"));
+		System.out.println(Moment.moment(new Date()).add(2, "days").format("MMMM Do YYYY, h:mm:ss a"));
 	}
 
 }

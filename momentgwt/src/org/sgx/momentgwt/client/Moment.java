@@ -2,6 +2,7 @@ package org.sgx.momentgwt.client;
 
 import java.util.Date;
 
+import org.sgx.jsutil.client.JsObject;
 import org.sgx.jsutil.client.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -144,6 +145,22 @@ b.year(); <span>// 2012</span></pre></div></div>
 public final native Moment moment(Moment m)/*-{
 return $wnd.moment(m);
 }-*/;
+
+
+/**<p>The main <code>moment()</code> function is very flexible and will allow overflowing in parsing input. For example, <code>moment("2012-01-40", "YYYY-MM-DD")</code> will overflow the date value into the months, making the actual moment Feb 9 (31 days in Jan + 9 days into Feb).</p><p>This can be useful when getting things like the 150th day of the year, or the 500th minute in a day, however, it can be problematic when trying to parse user input.</p><p><code>moment#isValid</code> was added to check if the input for a moment is indeed a valid date.</p><p><strong>Note:</strong> It is not intended to be used to validate that the input string matches the format string. Because the strictness of format matching can vary depending on the application and business requirements, this sort of validation is not included in Moment.js.</p><p>Instead, <code>moment#isValid</code> answers questions like "Does March 32nd exist?" and "Does February 29th 2011 exist?".</p><div><pre>moment(<span>"2011-10-10"</span>, <span>"YYYY-MM-DD"</span>).isValid(); <span>// true</span>
+moment(<span>"2011-10-50"</span>, <span>"YYYY-MM-DD"</span>).isValid(); <span>// false (bad day of month)</span></pre></div><p>It works with ISO 8601 parsing.</p><div><pre>moment(<span>"2011-10-10T10:20:90"</span>).isValid(); <span>// false (bad seconds)</span></pre></div><p>It works with an array of numbers that mirror the parameters passed to <code>new Date()</code>.</p><div><pre>moment([<span>2011</span>, <span>0</span>, <span>1</span>]).isValid(); <span>// true</span>
+moment([<span>2011</span>, <span>0</span>, <span>50</span>]).isValid(); <span>// false (bad day of month)</span></pre></div><p>It also works with a string that gets passed to <code>Date.parse()</code></p><div><pre>moment(<span>"not a date"</span>).isValid(); <span>// false</span></pre></div><p><strong>Note:</strong> The <code>moment#isValid</code> method will not work after manipulating the moment object with any of the manipulation methods.</p><div><pre>moment(<span>"2011-10-10"</span>, <span>"YYYY-MM-DD"</span>).isValid(); <span>// true</span>
+moment(<span>"2011-10-10"</span>, <span>"YYYY-MM-DD"</span>).date(<span>20</span>).isValid(); <span>// false</span></pre></div></div>
+ * @return true iff this is a valid moment object, for example: 
+ * <pre>moment("2010 notamonth 29", "YYYY MMM DD").isValid(); 
+ * // false (not a real month name)</pre>
+ */
+public final native boolean isValid()/*-{
+return this.isValid(); 
+}-*/;
+
+
+
 
 
 
@@ -463,24 +480,865 @@ a.hours(); <span>// 0 PST</span></pre></div></div>
 public final native Moment utc(Date date)/*-{
 return $wnd.utc(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(date));
 }-*/;
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//getters/setters
+
 /**
- * <div><pre>moment(String);</pre><p>You can create a moment from a string that can be parsed by <code>Date.parse</code>.</p><div><pre><span>var</span> day = moment(<span>"Dec 25, 1995"</span>);
-</pre></div><p><strong>Warning</strong> Browser support for this is inconsistent. Because there is no specification on which formats should be supported, what works in some browsers will not work in other browsers.</p><p>For more consistent results, you should use <a>String + Format</a>.</p><p>There is one exception. Moment.js does detect if you are using an ISO-8601 string and will parse that correctly without a format string.</p><p>The following ISO-8601 formats are supported across all browsers.</p><div><pre><span>"YYYY-MM-DD"</span><span>"YYYY-MM-DDTHH"</span><span>"YYYY-MM-DD HH"</span><span>"YYYY-MM-DDTHH:mm"</span><span>"YYYY-MM-DD HH:mm"</span><span>"YYYY-MM-DDTHH:mm:ss"</span><span>"YYYY-MM-DD HH:mm:ss"</span><span>"YYYY-MM-DDTHH:mm:ss.SSS"</span><span>"YYYY-MM-DD HH:mm:ss.SSS"</span><span>"YYYY-MM-DDTHH:mm:ss Z"</span><span>"YYYY-MM-DD HH:mm:ss Z"</span></pre></div><p><strong>Note:</strong> Automatic cross browser ISO-8601 support was added in version <strong>1.5.0</strong></p><p>If a string does not match any of the above formats and is not able to be parsed with <code>Date.parse</code>, <code>moment#isValid</code> will return false.</p><div><pre>moment(<span>"not a real date"</span>).isValid(); <span>// false</span></pre></div></div>
- * @param format
+ * Gets or sets the seconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the minutes.
  * @return
+ */
+public native final int seconds() /*-{
+return this["seconds"](val); 
+}-*/;
+/**
+ * Gets or sets the seconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the minutes.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment seconds(int val) /*-{
+this["seconds"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the seconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the minutes.
+ * @return
+ */
+public native final int second() /*-{
+return this["second"](val); 
+}-*/;
+/**
+ * Gets or sets the seconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the minutes.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment second(int val) /*-{
+this["second"](val); 
+return this; 
+}-*/;
+
+/**
+ * Gets or sets the milliseconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the seconds.
+ * @return
+ */
+public native final int milliseconds() /*-{
+return this["milliseconds"](val); 
+}-*/;
+/**
+ * Gets or sets the milliseconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the seconds.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment milliseconds(int val) /*-{
+this["milliseconds"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the milliseconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the seconds.
+ * @return
+ */
+public native final int millisecond() /*-{
+return this["millisecond"](val); 
+}-*/;
+/**
+ * Gets or sets the milliseconds.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the seconds.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment millisecond(int val) /*-{
+this["millisecond"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the minutes.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the hours.
+ * @return
+ */
+public native final int minutes() /*-{
+return this["minutes"](val); 
+}-*/;
+/**
+ * Gets or sets the minutes.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the hours.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment minutes(int val) /*-{
+this["minutes"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the minutes.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the hours.
+ * @return
+ */
+public native final int minute() /*-{
+return this["minute"](val); 
+}-*/;
+/**
+ * Gets or sets the minutes.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the hours.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment minute(int val) /*-{
+this["minute"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the hours.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the  day.
+ * @return
+ */
+public native final int hours() /*-{
+return this["hours"](val); 
+}-*/;
+/**
+ * Gets or sets the hours.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the  day.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment hours(int val) /*-{
+this["hours"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the hours.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the  day.
+ * @return
+ */
+public native final int hour() /*-{
+return this["hour"](val); 
+}-*/;
+/**
+ * Gets or sets the hours.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the  day.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment hour(int val) /*-{
+this["hour"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the dates.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#date is for the date of the month, and Moment#day is for the day of the week.
+ * @return
+ */
+public native final int dates() /*-{
+return this["dates"](val); 
+}-*/;
+/**
+ * Gets or sets the dates.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#date is for the date of the month, and Moment#day is for the day of the week.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment dates(int val) /*-{
+this["dates"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the dates.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#date is for the date of the month, and Moment#day is for the day of the week.
+ * @return
+ */
+public native final int date() /*-{
+return this["date"](val); 
+}-*/;
+/**
+ * Gets or sets the dates.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#date is for the date of the month, and Moment#day is for the day of the week.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment date(int val) /*-{
+this["date"](val); 
+return this; 
+}-*/;
+
+/**<div><pre>moment().day(Number);
+moment().day(); <span>// Number</span>
+moment().days(Number);
+moment().days(); <span>// Number</span></pre><p>Gets or sets the day of the week.</p><p>This method can be used to set the day of the week, with Sunday as 0 and Saturday as 6.</p><p>If the range is exceeded, it will bubble up to other weeks.</p><div><pre>moment().day(-<span>7</span>); <span>// last Sunday (0 - 7)</span>
+moment().day(<span>7</span>); <span>// next Sunday (0 + 7)</span>
+moment().day(<span>10</span>); <span>// next Wednesday (3 + 7)</span>
+moment().day(<span>24</span>); <span>// 3 Wednesdays from now (3 + 7 + 7 + 7)</span></pre></div><p><em>Note:</em><code>Moment#date</code> is for the date of the month, and <code>Moment#day</code> is for the day of the week.</p></div>
+ * @return
+ */
+public native final int days() /*-{
+return this["days"](val); 
+}-*/;
+/**<div><pre>moment().day(Number);
+moment().day(); <span>// Number</span>
+moment().days(Number);
+moment().days(); <span>// Number</span></pre><p>Gets or sets the day of the week.</p><p>This method can be used to set the day of the week, with Sunday as 0 and Saturday as 6.</p><p>If the range is exceeded, it will bubble up to other weeks.</p><div><pre>moment().day(-<span>7</span>); <span>// last Sunday (0 - 7)</span>
+moment().day(<span>7</span>); <span>// next Sunday (0 + 7)</span>
+moment().day(<span>10</span>); <span>// next Wednesday (3 + 7)</span>
+moment().day(<span>24</span>); <span>// 3 Wednesdays from now (3 + 7 + 7 + 7)</span></pre></div><p><em>Note:</em><code>Moment#date</code> is for the date of the month, and <code>Moment#day</code> is for the day of the week.</p></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment days(int val) /*-{
+this["days"](val); 
+return this; 
+}-*/;
+/**<div><pre>moment().day(Number);
+moment().day(); <span>// Number</span>
+moment().days(Number);
+moment().days(); <span>// Number</span></pre><p>Gets or sets the day of the week.</p><p>This method can be used to set the day of the week, with Sunday as 0 and Saturday as 6.</p><p>If the range is exceeded, it will bubble up to other weeks.</p><div><pre>moment().day(-<span>7</span>); <span>// last Sunday (0 - 7)</span>
+moment().day(<span>7</span>); <span>// next Sunday (0 + 7)</span>
+moment().day(<span>10</span>); <span>// next Wednesday (3 + 7)</span>
+moment().day(<span>24</span>); <span>// 3 Wednesdays from now (3 + 7 + 7 + 7)</span></pre></div><p><em>Note:</em><code>Moment#date</code> is for the date of the month, and <code>Moment#day</code> is for the day of the week.</p></div>
+ * @return
+ */
+public native final int day() /*-{
+return this["day"](val); 
+}-*/;
+/**<div><pre>moment().day(Number);
+moment().day(); <span>// Number</span>
+moment().days(Number);
+moment().days(); <span>// Number</span></pre><p>Gets or sets the day of the week.</p><p>This method can be used to set the day of the week, with Sunday as 0 and Saturday as 6.</p><p>If the range is exceeded, it will bubble up to other weeks.</p><div><pre>moment().day(-<span>7</span>); <span>// last Sunday (0 - 7)</span>
+moment().day(<span>7</span>); <span>// next Sunday (0 + 7)</span>
+moment().day(<span>10</span>); <span>// next Wednesday (3 + 7)</span>
+moment().day(<span>24</span>); <span>// 3 Wednesdays from now (3 + 7 + 7 + 7)</span></pre></div><p><em>Note:</em><code>Moment#date</code> is for the date of the month, and <code>Moment#day</code> is for the day of the week.</p></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment day(int val) /*-{
+this["day"](val); 
+return this; 
+}-*/;
+
+/**
+ * Gets or sets the dayOfYears.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#dayOfYear is for the dayOfYear of the month, and Moment#day is for the day of the years.
+ * @return
+ */
+public native final int dayOfYears() /*-{
+return this["dayOfYears"](val); 
+}-*/;
+/**
+ * Gets or sets the dayOfYears.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#dayOfYear is for the dayOfYear of the month, and Moment#day is for the day of the years.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment dayOfYears(int val) /*-{
+this["dayOfYears"](val); 
+return this; 
+}-*/;
+/**
+ * Gets or sets the dayOfYears.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#dayOfYear is for the dayOfYear of the month, and Moment#day is for the day of the years.
+ * @return
+ */
+public native final int dayOfYear() /*-{
+return this["dayOfYear"](val); 
+}-*/;
+/**
+ * Gets or sets the dayOfYears.
+Accepts numbers from 0 to 59. If the range is exceeded, it will bubble up to the months.
+Note: Moment#dayOfYear is for the dayOfYear of the month, and Moment#day is for the day of the years.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment dayOfYear(int val) /*-{
+this["dayOfYear"](val); 
+return this; 
+}-*/;
+
+/**<p>Gets or sets the week of the year.</p><p>Because different locales define week of year numbering differently, Moment.js added <code>moment#week</code> to get/set the localized week of the year.</p><p>The week of the year varies depending on which day is the first day of the week (Sunday, Monday, etc), and which week is the first week of the year.</p><p>For example, in the United States, Sunday is the first day of the week. The week with January 1st in it is the first week of the year.</p><p>In France, Monday is the first day of the week, and the week with January 4th is the first week of the year.</p><p>The output of <code>moment#week</code> will depend on the <a>locale/language</a> for that moment.</p><p>When setting the week of the year, the day of the week is retained.</p>
+ * @return
+ */
+public native final int weeks() /*-{
+return this["weeks"](val); 
+}-*/;
+/**<p>Gets or sets the week of the year.</p><p>Because different locales define week of year numbering differently, Moment.js added <code>moment#week</code> to get/set the localized week of the year.</p><p>The week of the year varies depending on which day is the first day of the week (Sunday, Monday, etc), and which week is the first week of the year.</p><p>For example, in the United States, Sunday is the first day of the week. The week with January 1st in it is the first week of the year.</p><p>In France, Monday is the first day of the week, and the week with January 4th is the first week of the year.</p><p>The output of <code>moment#week</code> will depend on the <a>locale/language</a> for that moment.</p><p>When setting the week of the year, the day of the week is retained.</p>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment weeks(int val) /*-{
+this["weeks"](val); 
+return this; 
+}-*/;
+/**<p>Gets or sets the week of the year.</p><p>Because different locales define week of year numbering differently, Moment.js added <code>moment#week</code> to get/set the localized week of the year.</p><p>The week of the year varies depending on which day is the first day of the week (Sunday, Monday, etc), and which week is the first week of the year.</p><p>For example, in the United States, Sunday is the first day of the week. The week with January 1st in it is the first week of the year.</p><p>In France, Monday is the first day of the week, and the week with January 4th is the first week of the year.</p><p>The output of <code>moment#week</code> will depend on the <a>locale/language</a> for that moment.</p><p>When setting the week of the year, the day of the week is retained.</p>
+ * @return
+ */
+public native final int week() /*-{
+return this["week"](val); 
+}-*/;
+/**<p>Gets or sets the week of the year.</p><p>Because different locales define week of year numbering differently, Moment.js added <code>moment#week</code> to get/set the localized week of the year.</p><p>The week of the year varies depending on which day is the first day of the week (Sunday, Monday, etc), and which week is the first week of the year.</p><p>For example, in the United States, Sunday is the first day of the week. The week with January 1st in it is the first week of the year.</p><p>In France, Monday is the first day of the week, and the week with January 4th is the first week of the year.</p><p>The output of <code>moment#week</code> will depend on the <a>locale/language</a> for that moment.</p><p>When setting the week of the year, the day of the week is retained.</p>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment week(int val) /*-{
+this["week"](val); 
+return this; 
+}-*/;
+
+
+/**Gets or sets the ISO week of the year. (http://en.wikipedia.org/wiki/ISO_week_date)
+When setting the week of the year, the day of the week is retained.
+ * @return
+ */
+public native final int isoWeeks() /*-{
+return this["isoWeeks"](val); 
+}-*/;
+/**Gets or sets the ISO week of the year. (http://en.wikipedia.org/wiki/ISO_week_date)
+When setting the week of the year, the day of the week is retained.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment isoWeeks(int val) /*-{
+this["isoWeeks"](val); 
+return this; 
+}-*/;
+/**Gets or sets the ISO week of the year. (http://en.wikipedia.org/wiki/ISO_week_date)
+When setting the week of the year, the day of the week is retained.
+ * @return
+ */
+public native final int isoWeek() /*-{
+return this["isoWeek"](val); 
+}-*/;
+/**Gets or sets the ISO week of the year. (http://en.wikipedia.org/wiki/ISO_week_date)
+When setting the week of the year, the day of the week is retained.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment isoWeek(int val) /*-{
+this["isoWeek"](val); 
+return this; 
+}-*/;
+
+
+/**<p>Gets or sets the month.</p><p>Accepts numbers from 0 to 11. If the range is exceeded, it will bubble up to the year.</p><p><strong>Note</strong>: Months are zero indexed, so January is month 0.</p>
+ * @return
+ */
+public native final int month() /*-{
+return this["month"](val); 
+}-*/;
+/**<p>Gets or sets the month.</p><p>Accepts numbers from 0 to 11. If the range is exceeded, it will bubble up to the year.</p><p><strong>Note</strong>: Months are zero indexed, so January is month 0.</p>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment month(int val) /*-{
+this["month"](val); 
+return this; 
+}-*/;
+/**<p>Gets or sets the month.</p><p>Accepts numbers from 0 to 11. If the range is exceeded, it will bubble up to the year.</p><p><strong>Note</strong>: Months are zero indexed, so January is month 0.</p>
+ * @return
+ */
+public native final int months() /*-{
+return this["months"](val); 
+}-*/;
+/**<p>Gets or sets the month.</p><p>Accepts numbers from 0 to 11. If the range is exceeded, it will bubble up to the year.</p><p><strong>Note</strong>: Months are zero indexed, so January is month 0.</p>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment months(int val) /*-{
+this["months"](val); 
+return this; 
+}-*/;
+
+
+/**Gets or sets the year.Accepts numbers from -270,00 to 270,000.
+ * @return
+ */
+public native final int year() /*-{
+return this["year"](val); 
+}-*/;
+/**Gets or sets the year.Accepts numbers from -270,00 to 270,000.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment year(int val) /*-{
+this["year"](val); 
+return this; 
+}-*/;
+/**Gets or sets the year.Accepts numbers from -270,00 to 270,000.
+ * @return
+ */
+public native final int years() /*-{
+return this["years"](val); 
+}-*/;
+/**Gets or sets the year.Accepts numbers from -270,00 to 270,000.
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment years(int val) /*-{
+this["years"](val); 
+return this; 
+}-*/;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Manipulate
+/**<div><pre>moment().add(String, Number);
+moment().add(Number, String); <span>// 2.0.0</span>
+moment().add(Duration); <span>// 1.6.0</span>
+moment().add(Object);</pre><p>Mutates the original moment by adding time.</p><p>This is a pretty robust function for adding time to an existing moment. To add time, pass the key of what time you want to add, and the amount you want to add.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>);
+</pre></div><p>There are some shorthand keys as well if you're into that whole brevity thing.</p><div><pre>moment().add(<span>'d'</span>, <span>7</span>);
+</pre></div><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>If you want to add multiple different keys at the same time, you can pass them in as an object literal.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>).add(<span>'months'</span>, <span>1</span>); <span>// with chaining</span>
+moment().add({days:<span>7</span>,months:<span>1</span>}); <span>// with object literal</span></pre></div><p>There are no upper limits for the amounts, so you can overload any of the parameters.</p><div><pre>moment().add(<span>'milliseconds'</span>, <span>1000000</span>); <span>// a million milliseconds</span>
+moment().add(<span>'days'</span>, <span>360</span>); <span>// 360 days</span></pre></div><h4>Special considerations for months and years</h4><p>If the day of the month on the original date is greater than the number of days in the final month,the day of the month will change to the last day in the final month.</p><div><pre>moment([<span>2010</span>, <span>0</span>, <span>31</span>]);                  <span>// January 31</span>
+moment([<span>2010</span>, <span>0</span>, <span>31</span>]).add(<span>'months'</span>, <span>1</span>); <span>// February 28</span></pre></div><p>There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.If you are adding years, months, weeks, or days, the original hour will always match the added hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'days'</span>, <span>1</span>).hours(); <span>// 5</span></pre></div><p>If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'hours'</span>, <span>24</span>).hours(); <span>// 6</span></pre></div><p>Alternatively, you can use <a>durations</a> to add to moments.</p><div><pre><span>var</span> duration = moment.duration({<span>'days'</span> : <span>1</span>});
+moment([<span>2012</span>, <span>0</span>, <span>31</span>]).add(duration); <span>// February 1</span></pre></div><p>As of version <strong>2.0.0</strong>, a reversed syntax is also supported to ease development. The syntaxes below will all work.</p><div><pre>moment().add(<span>'seconds'</span>, <span>1</span>);
+moment().add(<span>'seconds'</span>, <span>'1'</span>);
+moment().add(<span>1</span>, <span>'seconds'</span>);
+</pre></div><p>This syntax will not work. The first parameter would need to be a number, not a string.</p><div><pre>moment().add(<span>'1'</span>, <span>'seconds'</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment add(Moment val) /*-{
+this["add"](val); 
+return this; 
+}-*/;
+/**<div><pre>moment().add(String, Number);
+moment().add(Number, String); <span>// 2.0.0</span>
+moment().add(Duration); <span>// 1.6.0</span>
+moment().add(Object);</pre><p>Mutates the original moment by adding time.</p><p>This is a pretty robust function for adding time to an existing moment. To add time, pass the key of what time you want to add, and the amount you want to add.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>);
+</pre></div><p>There are some shorthand keys as well if you're into that whole brevity thing.</p><div><pre>moment().add(<span>'d'</span>, <span>7</span>);
+</pre></div><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>If you want to add multiple different keys at the same time, you can pass them in as an object literal.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>).add(<span>'months'</span>, <span>1</span>); <span>// with chaining</span>
+moment().add({days:<span>7</span>,months:<span>1</span>}); <span>// with object literal</span></pre></div><p>There are no upper limits for the amounts, so you can overload any of the parameters.</p><div><pre>moment().add(<span>'milliseconds'</span>, <span>1000000</span>); <span>// a million milliseconds</span>
+moment().add(<span>'days'</span>, <span>360</span>); <span>// 360 days</span></pre></div><h4>Special considerations for months and years</h4><p>If the day of the month on the original date is greater than the number of days in the final month,the day of the month will change to the last day in the final month.</p><div><pre>moment([<span>2010</span>, <span>0</span>, <span>31</span>]);                  <span>// January 31</span>
+moment([<span>2010</span>, <span>0</span>, <span>31</span>]).add(<span>'months'</span>, <span>1</span>); <span>// February 28</span></pre></div><p>There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.If you are adding years, months, weeks, or days, the original hour will always match the added hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'days'</span>, <span>1</span>).hours(); <span>// 5</span></pre></div><p>If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'hours'</span>, <span>24</span>).hours(); <span>// 6</span></pre></div><p>Alternatively, you can use <a>durations</a> to add to moments.</p><div><pre><span>var</span> duration = moment.duration({<span>'days'</span> : <span>1</span>});
+moment([<span>2012</span>, <span>0</span>, <span>31</span>]).add(duration); <span>// February 1</span></pre></div><p>As of version <strong>2.0.0</strong>, a reversed syntax is also supported to ease development. The syntaxes below will all work.</p><div><pre>moment().add(<span>'seconds'</span>, <span>1</span>);
+moment().add(<span>'seconds'</span>, <span>'1'</span>);
+moment().add(<span>1</span>, <span>'seconds'</span>);
+</pre></div><p>This syntax will not work. The first parameter would need to be a number, not a string.</p><div><pre>moment().add(<span>'1'</span>, <span>'seconds'</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment add(String s, double i) /*-{
+this["add"](s, i); 
+return this; 
+}-*/;
+/**<div><pre>moment().add(String, Number);
+moment().add(Number, String); <span>// 2.0.0</span>
+moment().add(Duration); <span>// 1.6.0</span>
+moment().add(Object);</pre><p>Mutates the original moment by adding time.</p><p>This is a pretty robust function for adding time to an existing moment. To add time, pass the key of what time you want to add, and the amount you want to add.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>);
+</pre></div><p>There are some shorthand keys as well if you're into that whole brevity thing.</p><div><pre>moment().add(<span>'d'</span>, <span>7</span>);
+</pre></div><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>If you want to add multiple different keys at the same time, you can pass them in as an object literal.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>).add(<span>'months'</span>, <span>1</span>); <span>// with chaining</span>
+moment().add({days:<span>7</span>,months:<span>1</span>}); <span>// with object literal</span></pre></div><p>There are no upper limits for the amounts, so you can overload any of the parameters.</p><div><pre>moment().add(<span>'milliseconds'</span>, <span>1000000</span>); <span>// a million milliseconds</span>
+moment().add(<span>'days'</span>, <span>360</span>); <span>// 360 days</span></pre></div><h4>Special considerations for months and years</h4><p>If the day of the month on the original date is greater than the number of days in the final month,the day of the month will change to the last day in the final month.</p><div><pre>moment([<span>2010</span>, <span>0</span>, <span>31</span>]);                  <span>// January 31</span>
+moment([<span>2010</span>, <span>0</span>, <span>31</span>]).add(<span>'months'</span>, <span>1</span>); <span>// February 28</span></pre></div><p>There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.If you are adding years, months, weeks, or days, the original hour will always match the added hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'days'</span>, <span>1</span>).hours(); <span>// 5</span></pre></div><p>If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'hours'</span>, <span>24</span>).hours(); <span>// 6</span></pre></div><p>Alternatively, you can use <a>durations</a> to add to moments.</p><div><pre><span>var</span> duration = moment.duration({<span>'days'</span> : <span>1</span>});
+moment([<span>2012</span>, <span>0</span>, <span>31</span>]).add(duration); <span>// February 1</span></pre></div><p>As of version <strong>2.0.0</strong>, a reversed syntax is also supported to ease development. The syntaxes below will all work.</p><div><pre>moment().add(<span>'seconds'</span>, <span>1</span>);
+moment().add(<span>'seconds'</span>, <span>'1'</span>);
+moment().add(<span>1</span>, <span>'seconds'</span>);
+</pre></div><p>This syntax will not work. The first parameter would need to be a number, not a string.</p><div><pre>moment().add(<span>'1'</span>, <span>'seconds'</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment add(double i, String s) /*-{
+this["add"](i, s); 
+return this; 
+}-*/;
+/**<div><pre>moment().add(String, Number);
+moment().add(Number, String); <span>// 2.0.0</span>
+moment().add(Duration); <span>// 1.6.0</span>
+moment().add(Object);</pre><p>Mutates the original moment by adding time.</p><p>This is a pretty robust function for adding time to an existing moment. To add time, pass the key of what time you want to add, and the amount you want to add.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>);
+</pre></div><p>There are some shorthand keys as well if you're into that whole brevity thing.</p><div><pre>moment().add(<span>'d'</span>, <span>7</span>);
+</pre></div><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>If you want to add multiple different keys at the same time, you can pass them in as an object literal.</p><div><pre>moment().add(<span>'days'</span>, <span>7</span>).add(<span>'months'</span>, <span>1</span>); <span>// with chaining</span>
+moment().add({days:<span>7</span>,months:<span>1</span>}); <span>// with object literal</span></pre></div><p>There are no upper limits for the amounts, so you can overload any of the parameters.</p><div><pre>moment().add(<span>'milliseconds'</span>, <span>1000000</span>); <span>// a million milliseconds</span>
+moment().add(<span>'days'</span>, <span>360</span>); <span>// 360 days</span></pre></div><h4>Special considerations for months and years</h4><p>If the day of the month on the original date is greater than the number of days in the final month,the day of the month will change to the last day in the final month.</p><div><pre>moment([<span>2010</span>, <span>0</span>, <span>31</span>]);                  <span>// January 31</span>
+moment([<span>2010</span>, <span>0</span>, <span>31</span>]).add(<span>'months'</span>, <span>1</span>); <span>// February 28</span></pre></div><p>There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.If you are adding years, months, weeks, or days, the original hour will always match the added hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'days'</span>, <span>1</span>).hours(); <span>// 5</span></pre></div><p>If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.</p><div><pre><span>var</span> m = moment(<span>new</span> Date(<span>2011</span>, <span>2</span>, <span>12</span>, <span>5</span>, <span>0</span>, <span>0</span>)); <span>// the day before DST in the US</span>
+m.hours(); <span>// 5</span>
+m.add(<span>'hours'</span>, <span>24</span>).hours(); <span>// 6</span></pre></div><p>Alternatively, you can use <a>durations</a> to add to moments.</p><div><pre><span>var</span> duration = moment.duration({<span>'days'</span> : <span>1</span>});
+moment([<span>2012</span>, <span>0</span>, <span>31</span>]).add(duration); <span>// February 1</span></pre></div><p>As of version <strong>2.0.0</strong>, a reversed syntax is also supported to ease development. The syntaxes below will all work.</p><div><pre>moment().add(<span>'seconds'</span>, <span>1</span>);
+moment().add(<span>'seconds'</span>, <span>'1'</span>);
+moment().add(<span>1</span>, <span>'seconds'</span>);
+</pre></div><p>This syntax will not work. The first parameter would need to be a number, not a string.</p><div><pre>moment().add(<span>'1'</span>, <span>'seconds'</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment add(JsObject o) /*-{
+this["add"](o); 
+return this; 
+}-*/;
+
+
+/**<div><pre>moment().subtract(String, Number);
+moment().subtract(Number, String); <span>// 2.0.0</span>
+moment().subtract(Duration); <span>// 1.6.0</span>
+moment().subtract(Object);</pre><p>Mutates the original moment by subtracting time.</p><p>This is exactly the same as <code>moment#add</code>, only instead of adding time, it subtracts time.</p><div><pre>moment().subtract(<span>'days'</span>, <span>7</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment subtract(Moment val) /*-{
+this["subtract"](val); 
+return this; 
+}-*/;
+/**<div><pre>moment().subtract(String, Number);
+moment().subtract(Number, String); <span>// 2.0.0</span>
+moment().subtract(Duration); <span>// 1.6.0</span>
+moment().subtract(Object);</pre><p>Mutates the original moment by subtracting time.</p><p>This is exactly the same as <code>moment#add</code>, only instead of adding time, it subtracts time.</p><div><pre>moment().subtract(<span>'days'</span>, <span>7</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment subtract(String s, double i) /*-{
+this["subtract"](s, i); 
+return this; 
+}-*/;
+/**<div><pre>moment().subtract(String, Number);
+moment().subtract(Number, String); <span>// 2.0.0</span>
+moment().subtract(Duration); <span>// 1.6.0</span>
+moment().subtract(Object);</pre><p>Mutates the original moment by subtracting time.</p><p>This is exactly the same as <code>moment#add</code>, only instead of adding time, it subtracts time.</p><div><pre>moment().subtract(<span>'days'</span>, <span>7</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment subtract(double i, String s) /*-{
+this["subtract"](i, s); 
+return this; 
+}-*/;
+/**<div><pre>moment().subtract(String, Number);
+moment().subtract(Number, String); <span>// 2.0.0</span>
+moment().subtract(Duration); <span>// 1.6.0</span>
+moment().subtract(Object);</pre><p>Mutates the original moment by subtracting time.</p><p>This is exactly the same as <code>moment#add</code>, only instead of adding time, it subtracts time.</p><div><pre>moment().subtract(<span>'days'</span>, <span>7</span>);
+</pre></div></div>
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final Moment subtract(JsObject o) /*-{
+this["subtract"](o); 
+return this; 
+}-*/;
+
+/**
+<div><pre>moment().startOf(String);</pre><p>Mutates the original moment by setting it to the start of a unit of time.</p><div><pre>moment().startOf(<span>'year'</span>);   <span>// set to January 1st, 12:00 am this year</span>
+moment().startOf(<span>'month'</span>);  <span>// set to the first of this month, 12:00 am</span>
+moment().startOf(<span>'week'</span>);   <span>// set to the first day of this week, 12:00 am</span>
+moment().startOf(<span>'day'</span>);    <span>// set to 12:00 am today</span>
+moment().startOf(<span>'hour'</span>);   <span>// set to now, but with 0 mins, 0 secs, and 0 ms</span>
+moment().startOf(<span>'minute'</span>); <span>// set to now, but with 0 seconds and 0 milliseconds</span>
+moment().startOf(<span>'second'</span>); <span>// same as moment().milliseconds(0);</span></pre></div><p>These shortcuts are essentially the same as the following.</p><div><pre>moment().startOf(<span>'year'</span>);
+moment().month(<span>0</span>).date(<span>1</span>).hours(<span>0</span>).minutes(<span>0</span>).seconds(<span>0</span>).milliseconds(<span>0</span>);
+</pre></div><div><pre>moment().startOf(<span>'hour'</span>);
+moment().minutes(<span>0</span>).seconds(<span>0</span>).milliseconds(<span>0</span>)
+</pre></div><p>As of version <strong>2.0.0</strong>, <code>moment#startOf('day')</code> replaced <code>moment#sod</code>.</p></div>
+ * @param s
+ * @return
+ */
+public native final Moment startOf(String s) /*-{
+this["startOf"](s); 
+return this; 
+}-*/;
+/**<div><pre>moment().endOf(String);</pre><p>Mutates the original moment by setting it to the end of a unit of time.</p><p>This is the same as <code>moment#startOf</code>, only instead of setting to the start of a unit of time, it sets to the end of a unit of time.</p><div><pre>moment().endOf(<span>"year"</span>); <span>// set the moment to 12-31 11:59:59.999 pm this year</span></pre></div><p>As of version <strong>2.0.0</strong>, <code>moment#endOf('day')</code> replaced <code>moment#eod</code>.</p></div>
+ * @param s
+ * @return
+ */
+public native final Moment endOf(String s) /*-{
+this["endOf"](s); 
+return this; 
+}-*/;
+/**
+ * <div><pre>moment().local();</pre><p>Toggles a flag on the original moment to internally use <code>Date#get*</code> and <code>Date#set*</code> instead of <code>Date#getUTC*</code> and <code>Date#setUTC*</code>.</p><div><pre><span>var</span> a = moment.utc([<span>2011</span>, <span>0</span>, <span>1</span>, <span>8</span>]);
+a.hours(); <span>// 8 UTC</span>
+a.local();
+a.hours(); <span>// 0 PST</span></pre></div><p>See <a>moment.utc()</a> for more information on UTC mode.</p></div>
+ * @return
+ */
+public native final Moment local() /*-{
+this["local"](s); 
+return this; 
+}-*/;
+///**
+// * @return
+// */
+//public native final Moment utc() /*-{
+//this["utc"](s); 
+//return this; 
+//}-*/;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Display
+
+/**<div><pre>moment().format();
+moment().format(String);</pre><p>This is the most robust display option. It takes a string of tokens and replaces them with their corresponding values.</p><div><pre>moment().format(<span>"dddd, MMMM Do YYYY, h:mm:ss a"</span>); <span>// "Sunday, February 14th 2010, 3:25:50 pm"</span>
+moment().format(<span>"ddd, hA"</span>);                       <span>// "Sun, 3PM"</span></pre></div><p>There are a couple conventions used with the naming of the</p><table><tbody><tr><th>Token</th><th>Output</th></tr><tr><td><b>Month</b></td><td>M</td><td>1 2 ... 11 12</td></tr><tr><td>Mo</td><td>1st 2nd ... 11th 12th</td></tr><tr><td>MM</td><td>01 02 ... 11 12</td></tr><tr><td>MMM</td><td>Jan Feb ... Nov Dec</td></tr><tr><td>MMMM</td><td>January February ... November December</td></tr><tr><td><b>Day of Month</b></td><td>D</td><td>1 2 ... 30 30</td></tr><tr><td>Do</td><td>1st 2nd ... 30th 31st</td></tr><tr><td>DD</td><td>01 02 ... 30 31</td></tr><tr><td><b>Day of Year</b></td><td>DDD</td><td>1 2 ... 364 365</td></tr><tr><td>DDDo</td><td>1st 2nd ... 364th 365th</td></tr><tr><td>DDDD</td><td>001 002 ... 364 365</td></tr><tr><td><b>Day of Week</b></td><td>d</td><td>0 1 ... 5 6</td></tr><tr><td>do</td><td>0th 1st ... 5th 6th</td></tr><tr><td>ddd</td><td>Sun Mon ... Fri Sat</td></tr><tr><td>dddd</td><td>Sunday Monday ... Friday Saturday</td></tr><tr><td><b>Week of Year</b></td><td>w</td><td>1 2 ... 52 53</td></tr><tr><td>wo</td><td>1st 2nd ... 52nd 53rd</td></tr><tr><td>ww</td><td>01 02 ... 52 53</td></tr><tr><td><b>ISO Week of Year</b></td><td>W</td><td>1 2 ... 52 53</td></tr><tr><td>Wo</td><td>1st 2nd ... 52nd 53rd</td></tr><tr><td>WW</td><td>01 02 ... 52 53</td></tr><tr><td><b>Year</b></td><td>YY</td><td>70 71 ... 29 30</td></tr><tr><td>YYYY</td><td>1970 1971 ... 2029 2030</td></tr><tr><td><b>AM/PM</b></td><td>A</td><td>AM PM</td></tr><tr><td>a</td><td>am pm</td></tr><tr><td><b>Hour</b></td><td>H</td><td>0 1 ... 22 23</td></tr><tr><td>HH</td><td>00 01 ... 22 23</td></tr><tr><td>h</td><td>1 2 ... 11 12</td></tr><tr><td>hh</td><td>01 02 ... 11 12</td></tr><tr><td><b>Minute</b></td><td>m</td><td>0 1 ... 58 59</td></tr><tr><td>mm</td><td>00 01 ... 58 59</td></tr><tr><td><b>Second</b></td><td>s</td><td>0 1 ... 58 59</td></tr><tr><td>ss</td><td>00 01 ... 58 59</td></tr><tr><td><b>Fractional Second</b></td><td>S</td><td>0 1 ... 8 9</td></tr><tr><td>SS</td><td>0 1 ... 98 99</td></tr><tr><td>SSS</td><td>0 1 ... 998 999</td></tr><tr><td>ss</td><td>00 01 ... 58 59</td></tr><tr><td><b>Timezone</b></td><td>z or zz</td><td>
+        EST CST ... MST PST
+        <b>Note:</b> as of <b>1.6.0</b>, the z/zz format tokens have been deprecated. <a>Read more about it here.</a></td></tr><tr><td>Z</td><td>-07:00 -06:00 ... +06:00 +07:00</td></tr><tr><td>ZZ</td><td>
+        -0700 -0600 ... +0600 +0700
+      </td></tr><tr><td><b>Unix Timestamp</b></td><td>X</td><td>1360013296</td></tr></tbody></table><p><code>Z ZZ</code> were added in <strong>1.2.0</strong>. <code>S SS SSS</code> were added in <strong>1.6.0</strong>. <code>X</code> was added in <code>2.0.0</code>.</p><h4>Localized formats</h4><p>Because preferred formatting differs based on locale, there are a few tokens that can be used to format a moment based on its language.</p><p>There are upper and lower case variations on the same formats. The lowercase version is intended to be the shortened version of its uppercase counterpart.</p><table><tbody><tr><td><b>Time</b></td><td>LT</td><td>8:30 PM</td></tr><tr><td><b>Month numeral, day of month, year</b></td><td>L</td><td>09/04/1986</td></tr><tr><td>l</td><td>9/4/1986</td></tr><tr><td><b>Month name, day of month, year</b></td><td>LL</td><td>September 4th 1986</td></tr><tr><td>ll</td><td>Sep 4 1986</td></tr><tr><td><b>Month name, day of month, year, time</b></td><td>LLL</td><td>September 4th 1986 8:30 PM</td></tr><tr><td>lll</td><td>Sep 4 1986 8:30 PM</td></tr><tr><td><b>Month name, day of month, day of week, year, time</b></td><td>LLLL</td><td>Thursday, September 4th 1986 8:30 PM</td></tr><tr><td>llll</td><td>Thu, Sep 4 1986 8:30 PM</td></tr></tbody></table><p><code>L LL LLL LLLL LT</code> are available in version <strong>1.3.0</strong>. <code>l ll lll llll</code> are available in <strong>2.0.0</strong>.</p><h4>Escaping characters</h4><p>To escape characters in format strings, you can wrap the characters in square brackets.</p><div><pre>moment().format(<span>'[today] DDDD'</span>); <span>// 'today Sunday'</span></pre></div><h4>Similarities and differences with LDML</h4><p><strong>Note:</strong> While these date formats are very similar to LDML date formats, there are a few minor differences regarding day of month, day of year, and day of week.</p><p>For a breakdown of a few different date formatting tokens across different languages, see <a>this chart of date formatting tokens.</a></p><h4>Formatting speed</h4><p>To compare Moment.js formatting speed against other libraries, check out <a>this comparison against other libraries</a>.</p><h4>Other tokens</h4><p>If you are more comfortable working with strftime instead of LDML-like parsing tokens, you can use Ben Oakes' plugin. <a>benjaminoakes/moment-strftime</a>.</p><h4>Default format</h4><p>As of version <strong>1.5.0</strong>, calling <code>moment#format</code> without a format will default to <code>moment.defaultFormat</code>. Out of the box, <code>moment.defaultFormat</code> is the ISO8601 format <code>YYYY-MM-DDTHH:mm:ssZ</code>.</p></div>
+ * @param format
+ * @return 
  */
 public final native String format(String format)/*-{
 return this.format(format); 
 }-*/;
-
-/**
- * @return true iff this is a valid moment object, for example: 
- * <pre>moment("2010 notamonth 29", "YYYY MMM DD").isValid(); 
- * // false (not a real month name)</pre>
+/**<div><pre>moment().format();
+moment().format(String);</pre><p>This is the most robust display option. It takes a string of tokens and replaces them with their corresponding values.</p><div><pre>moment().format(<span>"dddd, MMMM Do YYYY, h:mm:ss a"</span>); <span>// "Sunday, February 14th 2010, 3:25:50 pm"</span>
+moment().format(<span>"ddd, hA"</span>);                       <span>// "Sun, 3PM"</span></pre></div><p>There are a couple conventions used with the naming of the</p><table><tbody><tr><th>Token</th><th>Output</th></tr><tr><td><b>Month</b></td><td>M</td><td>1 2 ... 11 12</td></tr><tr><td>Mo</td><td>1st 2nd ... 11th 12th</td></tr><tr><td>MM</td><td>01 02 ... 11 12</td></tr><tr><td>MMM</td><td>Jan Feb ... Nov Dec</td></tr><tr><td>MMMM</td><td>January February ... November December</td></tr><tr><td><b>Day of Month</b></td><td>D</td><td>1 2 ... 30 30</td></tr><tr><td>Do</td><td>1st 2nd ... 30th 31st</td></tr><tr><td>DD</td><td>01 02 ... 30 31</td></tr><tr><td><b>Day of Year</b></td><td>DDD</td><td>1 2 ... 364 365</td></tr><tr><td>DDDo</td><td>1st 2nd ... 364th 365th</td></tr><tr><td>DDDD</td><td>001 002 ... 364 365</td></tr><tr><td><b>Day of Week</b></td><td>d</td><td>0 1 ... 5 6</td></tr><tr><td>do</td><td>0th 1st ... 5th 6th</td></tr><tr><td>ddd</td><td>Sun Mon ... Fri Sat</td></tr><tr><td>dddd</td><td>Sunday Monday ... Friday Saturday</td></tr><tr><td><b>Week of Year</b></td><td>w</td><td>1 2 ... 52 53</td></tr><tr><td>wo</td><td>1st 2nd ... 52nd 53rd</td></tr><tr><td>ww</td><td>01 02 ... 52 53</td></tr><tr><td><b>ISO Week of Year</b></td><td>W</td><td>1 2 ... 52 53</td></tr><tr><td>Wo</td><td>1st 2nd ... 52nd 53rd</td></tr><tr><td>WW</td><td>01 02 ... 52 53</td></tr><tr><td><b>Year</b></td><td>YY</td><td>70 71 ... 29 30</td></tr><tr><td>YYYY</td><td>1970 1971 ... 2029 2030</td></tr><tr><td><b>AM/PM</b></td><td>A</td><td>AM PM</td></tr><tr><td>a</td><td>am pm</td></tr><tr><td><b>Hour</b></td><td>H</td><td>0 1 ... 22 23</td></tr><tr><td>HH</td><td>00 01 ... 22 23</td></tr><tr><td>h</td><td>1 2 ... 11 12</td></tr><tr><td>hh</td><td>01 02 ... 11 12</td></tr><tr><td><b>Minute</b></td><td>m</td><td>0 1 ... 58 59</td></tr><tr><td>mm</td><td>00 01 ... 58 59</td></tr><tr><td><b>Second</b></td><td>s</td><td>0 1 ... 58 59</td></tr><tr><td>ss</td><td>00 01 ... 58 59</td></tr><tr><td><b>Fractional Second</b></td><td>S</td><td>0 1 ... 8 9</td></tr><tr><td>SS</td><td>0 1 ... 98 99</td></tr><tr><td>SSS</td><td>0 1 ... 998 999</td></tr><tr><td>ss</td><td>00 01 ... 58 59</td></tr><tr><td><b>Timezone</b></td><td>z or zz</td><td>
+        EST CST ... MST PST
+        <b>Note:</b> as of <b>1.6.0</b>, the z/zz format tokens have been deprecated. <a>Read more about it here.</a></td></tr><tr><td>Z</td><td>-07:00 -06:00 ... +06:00 +07:00</td></tr><tr><td>ZZ</td><td>
+        -0700 -0600 ... +0600 +0700
+      </td></tr><tr><td><b>Unix Timestamp</b></td><td>X</td><td>1360013296</td></tr></tbody></table><p><code>Z ZZ</code> were added in <strong>1.2.0</strong>. <code>S SS SSS</code> were added in <strong>1.6.0</strong>. <code>X</code> was added in <code>2.0.0</code>.</p><h4>Localized formats</h4><p>Because preferred formatting differs based on locale, there are a few tokens that can be used to format a moment based on its language.</p><p>There are upper and lower case variations on the same formats. The lowercase version is intended to be the shortened version of its uppercase counterpart.</p><table><tbody><tr><td><b>Time</b></td><td>LT</td><td>8:30 PM</td></tr><tr><td><b>Month numeral, day of month, year</b></td><td>L</td><td>09/04/1986</td></tr><tr><td>l</td><td>9/4/1986</td></tr><tr><td><b>Month name, day of month, year</b></td><td>LL</td><td>September 4th 1986</td></tr><tr><td>ll</td><td>Sep 4 1986</td></tr><tr><td><b>Month name, day of month, year, time</b></td><td>LLL</td><td>September 4th 1986 8:30 PM</td></tr><tr><td>lll</td><td>Sep 4 1986 8:30 PM</td></tr><tr><td><b>Month name, day of month, day of week, year, time</b></td><td>LLLL</td><td>Thursday, September 4th 1986 8:30 PM</td></tr><tr><td>llll</td><td>Thu, Sep 4 1986 8:30 PM</td></tr></tbody></table><p><code>L LL LLL LLLL LT</code> are available in version <strong>1.3.0</strong>. <code>l ll lll llll</code> are available in <strong>2.0.0</strong>.</p><h4>Escaping characters</h4><p>To escape characters in format strings, you can wrap the characters in square brackets.</p><div><pre>moment().format(<span>'[today] DDDD'</span>); <span>// 'today Sunday'</span></pre></div><h4>Similarities and differences with LDML</h4><p><strong>Note:</strong> While these date formats are very similar to LDML date formats, there are a few minor differences regarding day of month, day of year, and day of week.</p><p>For a breakdown of a few different date formatting tokens across different languages, see <a>this chart of date formatting tokens.</a></p><h4>Formatting speed</h4><p>To compare Moment.js formatting speed against other libraries, check out <a>this comparison against other libraries</a>.</p><h4>Other tokens</h4><p>If you are more comfortable working with strftime instead of LDML-like parsing tokens, you can use Ben Oakes' plugin. <a>benjaminoakes/moment-strftime</a>.</p><h4>Default format</h4><p>As of version <strong>1.5.0</strong>, calling <code>moment#format</code> without a format will default to <code>moment.defaultFormat</code>. Out of the box, <code>moment.defaultFormat</code> is the ISO8601 format <code>YYYY-MM-DDTHH:mm:ssZ</code>.</p></div>
+ * @param format
+ * @return 
  */
-public final native boolean isValid()/*-{
-return this.isValid(); 
+public final native String format()/*-{
+return this.format(); 
 }-*/;
 
+/**
+ * <div><pre>moment().fromNow();
+moment().fromNow(Boolean);</pre><p>A common way of displaying time is handled by <code>moment#fromNow</code>. This is sometimes called timeago or relative time.</p><div><pre>moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow(); <span>// 4 years ago</span></pre></div><p>If you pass <code>true</code>, you can get the value without the suffix.</p><div><pre>moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow();     <span>// 4 years ago</span>
+moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow(<span>true</span>); <span>// 4 years</span></pre></div><p>The base strings are <a>customized by the current language</a>.</p><p>The breakdown of which string is displayed for each length of time is outlined in the table below.</p><table><thead><tr><th>Range</th><th>Key</th><th>Sample Output</th></tr></thead><tbody><tr><td>0 to 45 seconds</td><td>s</td><td>seconds ago</td></tr><tr><td>45 to 90 seconds</td><td>m</td><td>a minute ago</td></tr><tr><td>90 seconds to 45 minutes</td><td>mm</td><td>2 minutes ago ... 45 minutes ago</td></tr><tr><td>45 to 90 minutes</td><td>h</td><td>an hour ago</td></tr><tr><td>90 minutes to 22 hours </td><td>hh</td><td>2 hours ago ... 22 hours ago</td></tr><tr><td>22 to 36 hours</td><td>d</td><td>a day ago</td></tr><tr><td>36 hours to 25 days</td><td>dd</td><td>2 days ago ... 25 days ago</td></tr><tr><td>25 to 45 days</td><td>M</td><td>a month ago</td></tr><tr><td>45 to 345 days</td><td>MM</td><td>2 months ago ... 11 months ago</td></tr><tr><td>345 to 547 days (1.5 years)</td><td>y</td><td>a year ago</td></tr><tr><td>548 days+</td><td>yy</td><td>2 years ago ... 20 years ago</td></tr></tbody></table></div>
+ * @return
+ */
+public final native String fromNow()/*-{
+return this.fromNow(); 
+}-*/;
+/**
+ * <div><pre>moment().fromNow();
+moment().fromNow(Boolean);</pre><p>A common way of displaying time is handled by <code>moment#fromNow</code>. This is sometimes called timeago or relative time.</p><div><pre>moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow(); <span>// 4 years ago</span></pre></div><p>If you pass <code>true</code>, you can get the value without the suffix.</p><div><pre>moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow();     <span>// 4 years ago</span>
+moment([<span>2007</span>, <span>0</span>, <span>29</span>]).fromNow(<span>true</span>); <span>// 4 years</span></pre></div><p>The base strings are <a>customized by the current language</a>.</p><p>The breakdown of which string is displayed for each length of time is outlined in the table below.</p><table><thead><tr><th>Range</th><th>Key</th><th>Sample Output</th></tr></thead><tbody><tr><td>0 to 45 seconds</td><td>s</td><td>seconds ago</td></tr><tr><td>45 to 90 seconds</td><td>m</td><td>a minute ago</td></tr><tr><td>90 seconds to 45 minutes</td><td>mm</td><td>2 minutes ago ... 45 minutes ago</td></tr><tr><td>45 to 90 minutes</td><td>h</td><td>an hour ago</td></tr><tr><td>90 minutes to 22 hours </td><td>hh</td><td>2 hours ago ... 22 hours ago</td></tr><tr><td>22 to 36 hours</td><td>d</td><td>a day ago</td></tr><tr><td>36 hours to 25 days</td><td>dd</td><td>2 days ago ... 25 days ago</td></tr><tr><td>25 to 45 days</td><td>M</td><td>a month ago</td></tr><tr><td>45 to 345 days</td><td>MM</td><td>2 months ago ... 11 months ago</td></tr><tr><td>345 to 547 days (1.5 years)</td><td>y</td><td>a year ago</td></tr><tr><td>548 days+</td><td>yy</td><td>2 years ago ... 20 years ago</td></tr></tbody></table></div>
+ * @param noSuffix
+ * @return
+ */
+public final native String fromNow(boolean noSuffix)/*-{
+return this.fromNow(noSuffix); 
+}-*/;
+
+
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(Moment o)/*-{
+return this.fromNow(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(Moment o, boolean suffix)/*-{
+return this.fromNow(o); 
+}-*/;
+
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(String o)/*-{
+return this.fromNow(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(String o, boolean suffix)/*-{
+return this.fromNow(o); 
+}-*/;
+
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(double o)/*-{
+return this.fromNow(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(double o, boolean suffix)/*-{
+return this.fromNow(o); 
+}-*/;
+
+
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(JavaScriptObject o)/*-{
+return this.fromNow(o); 
+}-*/;
+/**<div><pre>moment().from(Moment|String|Number|Date|Array);
+moment().from(Moment|String|Number|Date|Array, Boolean);</pre><p>You may want to display a moment in relation to a time other than now. In that case, you can use <code>moment#from</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b) <span>// "a day ago"</span></pre></div><p>The first parameter is anything you can pass to <code>moment()</code> or an actual <code>Moment</code>.</p><div><pre><span>var</span> a = moment([<span>2007</span>, <span>0</span>, <span>29</span>]);
+<span>var</span> b = moment([<span>2007</span>, <span>0</span>, <span>28</span>]);
+a.from(b);                     <span>// "a day ago"</span>
+a.from([<span>2007</span>, <span>0</span>, <span>28</span>]);         <span>// "a day ago"</span>
+a.from(<span>new</span> Date(<span>2007</span>, <span>0</span>, <span>28</span>)); <span>// "a day ago"</span>
+a.from(<span>"1-28-2007"</span>);           <span>// "a day ago"</span></pre></div><p>Like <code>moment#fromNow</code>, passing <code>true</code> as the second parameter returns value without the suffix. This is useful wherever you need to have a human readable length of time.</p><div><pre><span>var</span> start = moment([<span>2007</span>, <span>0</span>, <span>5</span>]);
+<span>var</span> end = moment([<span>2007</span>, <span>0</span>, <span>10</span>]);
+start.from(end);       <span>// "in 5 days"</span>
+start.from(end, <span>true</span>); <span>// "5 days"</span></pre></div></div>
+ * @param o
+ * @return
+ */
+public final native String from(JavaScriptObject o, boolean suffix)/*-{
+return this.fromNow(o); 
+}-*/;
 
 }
