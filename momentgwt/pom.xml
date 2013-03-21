@@ -31,19 +31,19 @@
   </repository>
 </repositories>
 
-<!-- <distributionManagement> -->
-<!--   <repository> -->
-<!--     <id>sgmavenrepo</id> -->
-<!--     <name>Maven Repository for sg libraries</name> -->
-<!--     <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/repo</url> -->
-<!--   </repository> -->
-<!--   <snapshotRepository> -->
-<!--     <id>sgmavenrepo-snapshot</id> -->
-<!--     <name>Maven Repository for sg libraries (snapshot)</name> -->
-<!--     <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/snapshot-repo</url> -->
-<!--     <uniqueVersion>false</uniqueVersion> -->
-<!--   </snapshotRepository> -->
-<!-- </distributionManagement> -->
+<distributionManagement>
+  <repository>
+    <id>sgmavenrepo</id>
+    <name>Maven Repository for sg libraries</name>
+    <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/repo</url>
+  </repository>
+  <snapshotRepository>
+    <id>sgmavenrepo-snapshot</id>
+    <name>Maven Repository for sg libraries (snapshot)</name>
+    <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/snapshot-repo</url>
+    <uniqueVersion>false</uniqueVersion>
+  </snapshotRepository>
+</distributionManagement>
 
 
 <!-- 	<repositories> -->
@@ -82,13 +82,15 @@
 	<build>
 	    
 	    
-<!-- 		<extensions> -->
-<!-- 		    <extension> -->
-<!-- 		      <groupId>org.jvnet.wagon-svn</groupId> -->
-<!-- 		      <artifactId>wagon-svn</artifactId> -->
-<!-- 		      <version>1.9</version> -->
-<!-- 		    </extension> -->
-<!-- 		  </extensions> -->
+		<extensions>
+		    
+			<!-- for deploying maven jars in my repo. mvn deploy -->
+		    <extension>
+		      <groupId>org.jvnet.wagon-svn</groupId>
+		      <artifactId>wagon-svn</artifactId>
+		      <version>1.9</version>
+		    </extension>
+		  </extensions>
   
 		<sourceDirectory>${basedir}/src</sourceDirectory>
 		<resources>
