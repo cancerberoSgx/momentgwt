@@ -1,5 +1,6 @@
 moment.js (momentjs.com) wrapper library for GWT.  
 
+
 ¿Why?
 
 While GWT supports some utilities for working with dates, it do not support emulation for the standard java.util.Calendar, etc. 
@@ -7,30 +8,56 @@ This project fully wrapps the JavaScript library momentjs that contains full Dat
 I hope this can be of help when the currentGWT Date tools are insufficient. 
  
  
+ 
 Maven
 
-momentgwt depends on project gwtjsutil (http://code.google.com/p/gwtjsutil/). So for building 
-momentgwt we first need to install gwtjsutil library. Fortunately both projects use maven so we
-can do the entire thing like this: 
+momentgwt supports maven and it is available in a personal repository hosted on google code (not in maven central). 
+The sub project momentgwttest1 - a simple test application for momentgwt - contains a maven POM file
+for compiling the project: https://github.com/cancerberoSgx/momentgwt/blob/master/momentgwttest/momentgwttest1/pom.xml
+Check it out to see how you can include momentgwt as a maven dependency in your projects. Important parts of the momentgwt user's .POM: 
 
-#installing gwtjsutil - only once
+	<repositories>
+	  <repository>
+	    <id>sgmavenrepo</id>
+	    <name>Maven Repository for sg libraries</name>
+	    <url>http://sgmavenrepo.googlecode.com/svn/maven/repo</url>
+	  </repository>
+	</repositories>
+	
+	<dependencies>
+		...
+		<dependency>
+			<groupId>org.sgx</groupId>
+			<artifactId>momentgwt</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+
+
+
+JARS
+
+momentgwt-nodep-.jar is always available at http://code.google.com/p/momentgwt/downloads/list
+That .jar has no dependencies. 
+
+If you want to generate the .jars from sources this is how to. 
+momentgwt depends on other GWT library called gwtjsutil. 
+The following script example download the sources and generated the .jar of
+both libraries - momentgwt and gwtjsutil (using maven). If you are going this way you need to include both .jars in your GWT project's java class path. 
+
+# gwtjsutil
 svn checkout http://gwtjsutil.googlecode.com/svn/trunk/ gwtjsutil-read-only
-cd gwtjsutil-read-only/gwtjsutil
-mvn install
+cd gwtjsutil/gwtjsutil
+mvn package
 cd ../..
 
-#installing momentgwt
+# momentgwt
 git clone git://github.com/cancerberoSgx/momentgwt.git
 cd momentgwt/momentgwt
 mvn install
 cd ../..
 
-If everything is OK, then you should have the momentgwt.jar in momentgwt/momentgwt/target. 
+If everything is OK, then you should have two .jar files: 
 
-If you need to include momentgwt as a maven dependency: 
-
-<dependency>
-	<groupId>org.sgx</groupId>
-	<artifactId>momentgwt</artifactId>
-	<version>1.0</version>
-</dependency>
+gwtjsutil/gwtjsutil/target/gwtjsutil.jar
+momentgwt/momentgwt/target/momentgwt.jar 
