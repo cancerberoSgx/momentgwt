@@ -11,7 +11,7 @@ public class DurationData extends JavaScriptObject {
 
 	public static final native DurationData create()/*-{
 		return {};
-	}-*/;
+	}-*/; 
 
 	/**
 	 * 

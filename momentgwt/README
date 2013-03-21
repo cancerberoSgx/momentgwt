@@ -1,6 +1,14 @@
 moment.js (momentjs.com) wrapper library for GWT.  
 
+¿Why?
+
+While GWT supports some utilities for working with dates, it do not support emulation for the standard java.util.Calendar, etc. 
+This project fully wrapps the JavaScript library momentjs that contains full Date/calendar utilities with support for internationalization: 
+I hope this can be of help when the currentGWT Date tools are insufficient. 
+ 
+ 
 Maven
+
 momentgwt depends on project gwtjsutil (http://code.google.com/p/gwtjsutil/). So for building 
 momentgwt we first need to install gwtjsutil library. Fortunately both projects use maven so we
 can do the entire thing like this: 

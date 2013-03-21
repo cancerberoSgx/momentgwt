@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
-                      
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sgx</groupId>
 	<artifactId>momentgwt</artifactId>
@@ -8,14 +8,52 @@
 	<version>1.0</version>
 	<name>momentjs GWT wrapper</name>
 	<url>https://github.com/cancerberoSgx/momentgwt/</url>
-	
+
 	<licenses>
 		<license>
 			<name>MIT</name>
 			<url>http://www.opensource.org/licenses/mit-license.php</url>
 		</license>
 	</licenses>
+
 	
+	
+<repositories>
+  <repository>
+    <id>maven2-repository.dev.java.net</id>
+    <name>Java.net Repository for Maven</name>
+    <url>http://download.java.net/maven/2/</url>
+  </repository>
+  <repository>
+    <id>sgmavenrepo</id>
+    <name>Maven Repository for sg libraries</name>
+    <url>http://sgmavenrepo.googlecode.com/svn/maven/repo</url>
+  </repository>
+</repositories>
+
+<!-- <distributionManagement> -->
+<!--   <repository> -->
+<!--     <id>sgmavenrepo</id> -->
+<!--     <name>Maven Repository for sg libraries</name> -->
+<!--     <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/repo</url> -->
+<!--   </repository> -->
+<!--   <snapshotRepository> -->
+<!--     <id>sgmavenrepo-snapshot</id> -->
+<!--     <name>Maven Repository for sg libraries (snapshot)</name> -->
+<!--     <url>svn:https://sgmavenrepo.googlecode.com/svn/maven/snapshot-repo</url> -->
+<!--     <uniqueVersion>false</uniqueVersion> -->
+<!--   </snapshotRepository> -->
+<!-- </distributionManagement> -->
+
+
+<!-- 	<repositories> -->
+<!-- 		<repository> -->
+<!-- 			<id>sgmavenrepo</id> -->
+<!-- 			<name>Maven Repository for sg libraries</name> -->
+<!-- 			<url>http://sgmavenrepo.googlecode.com/svn/maven/repo</url> -->
+<!-- 		</repository> -->
+<!-- 	</repositories> -->
+
 	<properties>
 		<gwt.version>2.5.0</gwt.version>
 		<java.version>${java.specification.version}</java.version>
@@ -28,22 +66,30 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<version>${gwt.version}</version>
-		</dependency>
-		
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.gwt</groupId> -->
+<!-- 			<artifactId>gwt-dev</artifactId> -->
+<!-- 			<version>${gwt.version}</version> -->
+<!-- 		</dependency> -->
+
 		<dependency>
 			<groupId>org.sgx</groupId>
 			<artifactId>gwtjsutil</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
-		
 	</dependencies>
 
 	<build>
+	    
+	    
+<!-- 		<extensions> -->
+<!-- 		    <extension> -->
+<!-- 		      <groupId>org.jvnet.wagon-svn</groupId> -->
+<!-- 		      <artifactId>wagon-svn</artifactId> -->
+<!-- 		      <version>1.9</version> -->
+<!-- 		    </extension> -->
+<!-- 		  </extensions> -->
+  
 		<sourceDirectory>${basedir}/src</sourceDirectory>
 		<resources>
 			<resource>
@@ -51,28 +97,30 @@
 				<includes>
 					<include>**/*.java</include>
 					<include>**/*.gwt.xml</include>
+					<include>**/*.min.js</include>
 				</includes>
 			</resource>
 		</resources>
-		
-		
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <version>2.5.0</version>
-        <executions>
-          <execution>
-<!--             <configuration> -->
-<!--               <module>org.sgx.jsutil.JsUtil</module> -->
-<!--             </configuration> -->
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  <outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
+	    
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.5.0</version>
+				<executions>
+					<execution>
+						<configuration>
+						<module>org.sgx.momentgwt.MomentGwt</module>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
+	
 	</build>
 </project>

@@ -4,4 +4,4 @@
 	<inherits name="org.sgx.jsutil.JsUtil" />
 	<source path="client" />
 	<entry-point class="org.sgx.momentgwt.client.MomentGwtEntryPoint"></entry-point>
-</module>
+</module> 
