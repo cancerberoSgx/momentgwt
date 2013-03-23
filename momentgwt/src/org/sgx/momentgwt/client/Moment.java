@@ -43,7 +43,7 @@ public static final native Moment moment()/*-{
  * @return
  */
 public static final native Moment moment(String date)/*-{
-return $wnd.moment();
+return $wnd.moment(date);
 }-*/;
 
 /**

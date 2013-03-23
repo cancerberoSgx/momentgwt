@@ -63,7 +63,7 @@ both libraries - momentgwt and gwtjsutil (using maven). If you are going this wa
 # gwtjsutil
 svn checkout http://gwtjsutil.googlecode.com/svn/trunk/ gwtjsutil-read-only
 cd gwtjsutil/gwtjsutil
-mvn package
+mvn install
 cd ../..
 
 # momentgwt
