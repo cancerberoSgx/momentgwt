@@ -2465,7 +2465,7 @@ fr.lang().months <span>// ["January", "February", "March", ...]</span></pre></di
  * @return
  */
 public static final native void lang(String langId)/*-{
-$wnd.moment.lang(langId, langDef);
+$wnd.moment.lang(langId);
 }-*/;
 /**
  * returns current lang id
