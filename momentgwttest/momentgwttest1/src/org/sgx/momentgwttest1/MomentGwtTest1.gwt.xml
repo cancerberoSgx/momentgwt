@@ -4,5 +4,6 @@
 	<inherits name="com.google.gwt.user.User" />	
 	<inherits name="org.sgx.momentgwt.MomentGwtNoScript" />	
 	<source path="client" />
+	<public path="war"></public>
 	<entry-point class="org.sgx.momentgwttest1.client.MomentGwtTest1EP"></entry-point>
-</module> 
+</module>  

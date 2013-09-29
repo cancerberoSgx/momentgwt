@@ -9,7 +9,15 @@
 	<name>momentgwt test</name>
 	<url>https://github.com/cancerberoSgx/momentgwt/</url>
 
+
 	<repositories>
+		<!-- need this for the svn stuff -->
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<!-- need this for jsutils dependency -->
 	  <repository>
 	    <id>sgmavenrepo</id>
 	    <name>Maven Repository for sg libraries</name>
@@ -17,8 +25,26 @@
 	  </repository>
 	</repositories>
 
+	<!-- here we declare our repository information -->
+	<distributionManagement>
+		<repository>
+			<id>sgmavenrepo</id>
+			<name>Maven Repository for sg libraries</name>
+			<url>svn:https://sgmavenrepo.googlecode.com/svn/maven/repo</url>
+		</repository>
+		<snapshotRepository>
+			<id>sgmavenrepo-snapshot</id>
+			<name>Maven Repository for sg libraries (snapshot)</name>
+			<url>svn:https://sgmavenrepo.googlecode.com/svn/maven/snapshot-repo</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	
+
 	<properties>
-		<gwt.version>2.5.0</gwt.version>
+		<gwt.version>2.5.1</gwt.version>
 		<java.version>${java.specification.version}</java.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 	</properties>
@@ -42,6 +68,15 @@
 	</dependencies>
 
 	<build>
+	
+<!-- 		<extensions> -->
+<!-- 			<extension> -->
+<!-- 				<groupId>org.jvnet.wagon-svn</groupId> -->
+<!-- 				<artifactId>wagon-svn</artifactId> -->
+<!-- 				<version>1.9</version> -->
+<!-- 			</extension> -->
+<!-- 		</extensions> -->
+	
 		<sourceDirectory>${basedir}/src</sourceDirectory>
 		<resources>
 			<resource>
@@ -55,21 +90,19 @@
 
 
 		<plugins>
+		
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.5.0</version>
-				<executions>
-					<execution>
-						<configuration>
-						</configuration>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
+				<version>${gwt.version}</version>
+				<configuration>
+					<webappDirectory>${project.build.directory}/../war</webappDirectory>
+					<runTarget>org.sgx.momentgwttest1.MomentGwtTest1/momentgwttest1.html</runTarget>			
+				</configuration>
 			</plugin>
+			
 		</plugins>
-		<outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
+		
+		<outputDirectory>${project.build.directory}/../war/WEB-INF/classes</outputDirectory>
 	</build>
 </project>
