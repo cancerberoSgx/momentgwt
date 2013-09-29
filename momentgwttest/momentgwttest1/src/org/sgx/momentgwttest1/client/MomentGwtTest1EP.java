@@ -31,7 +31,7 @@ public class MomentGwtTest1EP implements EntryPoint {
 //		Window.alert("done2");
 	}
 	private void printLog() {
-		DOMUtil.appendStringAsNodes(Document.get().getBody(), "<p>"+log+"/p>"); 
+		DOMUtil.appendStringAsNodes(Document.get().getBody(), "<p>"+log+"</p>"); 
 	}
 	private void log(Object s) {
 		log.append(s); 

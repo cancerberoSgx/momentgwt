@@ -1,10 +1,9 @@
 moment.js (momentjs.com) wrapper library for GWT.  
 
-
 ¿Why?
 
 While GWT supports some utilities for working with dates, it do not support emulation for the standard java.util.Calendar, etc. 
-This project fully wrapps the JavaScript library momentjs that contains full Date/calendar utilities with support for internationalization:
+This project fully wrap the JavaScript library momentjs that contains full Date/calendar utilities with support for internationalization:
  
 I hope this can be of help when the currentGWT Date tools are insufficient.
 See the API javadocs at http://cancerbero.vacau.com/gwt/momentgwtjavadoc/  
@@ -19,6 +18,17 @@ How to use
 
 System.out.println(
 	Moment.moment().add(2, "days").format("MMMM Do YYYY, h:mm:ss a")); 
+	
+	
+There are three Modules: 
+
+org.sgx.momentgwt.MomentGwtNoScript. Recommended for using latest javascript momentjs library version. 
+This module Do not load any momentjs souces. 
+User is responsible of loading the momentjs library for example using <script> in <head>
+
+org.sgx.momentgwt.MomentGwt : load only momentjs.min.js automatically (as a GWT resource). No mometjs language
+
+org.sgx.momentgwt.MomentGwtLang : load momentjs and languages automatically (as a GWT resource). 
 	
 
 Internationalization
@@ -69,10 +79,17 @@ Check it out to see how you can include momentgwt as a maven dependency in your 
 	</dependencies>
 
 
+See https://github.com/cancerberoSgx/momentgwt/tree/master/momentgwttest/momentgwttest1 for an example project using maven. 
+Just cd to the project and mvn:run for compiling and running the app.
+
+
+
 
 JARS
 
-momentgwt-alldeps-x.x.jar is always available at http://code.google.com/p/momentgwt/downloads/list
+Because we are using maven as our primery build tool, latest .jar files are always at http://sgmavenrepo.googlecode.com/svn/maven/repo/org/sgx/momentgwt/
+
+Also momentgwt-alldeps-x.x.jar is always available at http://code.google.com/p/momentgwt/downloads/list
 That .jar has no dependencies. 
 
 If you want to generate the .jars from sources this is how to. 
