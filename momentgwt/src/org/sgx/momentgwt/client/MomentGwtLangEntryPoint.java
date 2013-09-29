@@ -6,7 +6,7 @@ import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
-public class MomentGwtEntryPoint implements EntryPoint {
+public class MomentGwtLangEntryPoint implements EntryPoint {
 	/*
 	 * raphael javascript loading using a TextResource and ScriptInjector.fromString(), not using the unsuported <script> in gwt.xml
 	 */
@@ -15,14 +15,14 @@ public class MomentGwtEntryPoint implements EntryPoint {
 
 		public static MomentScripts instance = GWT.create(MomentScripts.class);
 
-		@Source("scripts/moment.min.js")
-		TextResource momentjs();
+		@Source("scripts/moment+langs.min.js")
+		TextResource moment_langs_js();
 
 	}
 
 	static void loadMomentJs() {
 		String text = 
-				MomentScripts.instance.momentjs().getText();
+				MomentScripts.instance.moment_langs_js().getText();
 		ScriptInjector.fromString(text).setWindow(ScriptInjector.TOP_WINDOW).inject();
 	}
 

@@ -25,6 +25,7 @@ protected Moment(){}
 ////// MOMENT CREATION - moment() /////////////////
 ///////////////////////////////////////////////////
 
+
 /**
  * Now. <div><pre>moment();</pre><p>To get the current date and time, just call <code>moment()</code> with no parameters.</p><div><pre><span>var</span> now = moment();
 </pre></div><p>This is essentially the same as calling <code>moment(new Date())</code>.</p></div>
@@ -45,6 +46,17 @@ public static final native Moment moment()/*-{
 public static final native Moment moment(String date)/*-{
 return $wnd.moment(date);
 }-*/;
+
+/**
+ * <div><pre>moment(String);</pre><p>You can create a moment from a string that can be parsed by <code>Date.parse</code>.</p><div><pre><span>var</span> day = moment(<span>"Dec 25, 1995"</span>);
+</pre></div><p><strong>Warning</strong> Browser support for this is inconsistent. Because there is no specification on which formats should be supported, what works in some browsers will not work in other browsers.</p><p>For more consistent results, you should use <a>String + Format</a>.</p><p>There is one exception. Moment.js does detect if you are using an ISO-8601 string and will parse that correctly without a format string.</p><p>The following ISO-8601 formats are supported across all browsers.</p><div><pre><span>"YYYY-MM-DD"</span><span>"YYYY-MM-DDTHH"</span><span>"YYYY-MM-DD HH"</span><span>"YYYY-MM-DDTHH:mm"</span><span>"YYYY-MM-DD HH:mm"</span><span>"YYYY-MM-DDTHH:mm:ss"</span><span>"YYYY-MM-DD HH:mm:ss"</span><span>"YYYY-MM-DDTHH:mm:ss.SSS"</span><span>"YYYY-MM-DD HH:mm:ss.SSS"</span><span>"YYYY-MM-DDTHH:mm:ss Z"</span><span>"YYYY-MM-DD HH:mm:ss Z"</span></pre></div><p><strong>Note:</strong> Automatic cross browser ISO-8601 support was added in version <strong>1.5.0</strong></p><p>If a string does not match any of the above formats and is not able to be parsed with <code>Date.parse</code>, <code>moment#isValid</code> will return false.</p><div><pre>moment(<span>"not a real date"</span>).isValid(); <span>// false</span></pre></div></div>
+ * @param date
+ * @return
+ */
+public static final native Moment moment(String date, String format, String lang)/*-{
+return $wnd.moment(date, format, lang);
+}-*/;
+
 
 /**
  * <div><pre>moment(String, String[]);</pre><p>If you don't know the exact format of an input string, but know it could be one of many, you can use an array of formats.</p><p>This is the same as <a>String + Format</a>, only it will try to match the input to multiple formats.</p><div><pre>moment(<span>"12-25-1995"</span>, [<span>"MM-DD-YYYY"</span>, <span>"YYYY-MM-DD"</span>]);
@@ -191,8 +203,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc()/*-{
-return $wnd.utc();
+public static final native Moment utc()/*-{
+return $wnd.moment.utc();
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -217,8 +229,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(double i)/*-{
-return $wnd.utc(i);
+public static final native Moment utc(double i)/*-{
+return $wnd.moment.utc(i);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -243,8 +255,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(double[]i)/*-{
-return $wnd.utc(@org.sgx.jsutil.client.JsUtil::toJsArrayDouble([D)(i));
+public static final native Moment utc(double[]i)/*-{
+return $wnd.moment.utc(@org.sgx.jsutil.client.JsUtil::toJsArrayDouble([D)(i));
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -269,8 +281,11 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(JsArrayNumber i)/*-{
-return $wnd.utc(i);
+public static final native Moment utc(int[]i)/*-{
+	var param = @org.sgx.jsutil.client.JsUtil::toJsArrayInt([I)(i);  
+//	debugger;	
+//	@org.sgx.jsutil.client.JsUtil::consoleLog(Lcom/google/gwt/core/client/JavaScriptObject;)(param);	
+	return $wnd.moment.utc(param); 
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -295,8 +310,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(String i)/*-{
-return $wnd.utc(i);
+public static final native Moment utc(JsArrayNumber i)/*-{
+return $wnd.moment.utc(i);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -321,8 +336,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(String i, String j)/*-{
-return $wnd.utc(i, j);
+public static final native Moment utc(String i)/*-{
+return $wnd.moment.utc(i);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -347,8 +362,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(String i, JsArrayString j)/*-{
-return $wnd.utc(i, j);
+public static final native Moment utc(String i, String j)/*-{
+return $wnd.moment.utc(i, j);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -373,8 +388,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(String i, String[] j)/*-{
-return $wnd.utc(i, @org.sgx.jsutil.client.JsUtil::toJsArrayString([Ljava/lang/String;)(j));
+public static final native Moment utc(String i, JsArrayString j)/*-{
+return $wnd.moment.utc(i, j);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -399,8 +414,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(String i, String j, String k)/*-{
-return $wnd.utc(i, j, k);
+public static final native Moment utc(String i, String[] j)/*-{
+return $wnd.moment.utc(i, @org.sgx.jsutil.client.JsUtil::toJsArrayString([Ljava/lang/String;)(j));
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -425,8 +440,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(Moment m)/*-{
-return $wnd.utc(m);
+public static final native Moment utc(String i, String j, String k)/*-{
+return $wnd.moment.utc(i, j, k);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -451,8 +466,8 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(JavaScriptObject date)/*-{
-return $wnd.utc(date);
+public static final native Moment utc(Moment m)/*-{
+return $wnd.moment.utc(m);
 }-*/;
 /**
  * <div><pre>moment.utc();
@@ -477,8 +492,34 @@ a.local();
 a.hours(); <span>// 0 PST</span></pre></div></div>
  * @return
  */
-public final native Moment utc(Date date)/*-{
-return $wnd.utc(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(date));
+public static final native Moment utc(JavaScriptObject date)/*-{
+return $wnd.moment.utc(date);
+}-*/;
+/**
+ * <div><pre>moment.utc();
+moment.utc(Number);
+moment.utc(Number[]);
+moment.utc(String);
+moment.utc(String, String);
+moment.utc(String, String[]);
+moment.utc(String, String, String);
+moment.utc(Moment);
+moment.utc(Date);</pre><p>By default, moment parses and displays in local time.</p><p>If you want to parse or display a moment in UTC, you can use <code>moment.utc()</code> instead of <code>moment()</code>.</p><p>This brings us to an interesting feature of Moment.js. UTC mode.</p><p>While in UTC mode, all display methods will display in UTC time instead of local time.</p><div><pre>moment().format();     <span>// 2013-02-04T10:35:24-08:00</span>
+moment.utc().format(); <span>// 2013-02-04T18:35:24+00:00</span></pre></div><p>Additionally, while in UTC mode, all getters and setters will internally use the <code>Date#getUTC*</code> and <code>Date#setUTC*</code> methods instead of the <code>Date#get*</code> and <code>Date#set*</code> methods.</p><div><pre>moment.utc().seconds(<span>30</span>) === <span>new</span> Date().setUTCSeconds(<span>30</span>);
+moment.utc().seconds()   === <span>new</span> Date().getUTCSeconds();
+</pre></div><p>It is important to note that though the displays differ above, they are both the same moment in time.</p><div><pre><span>var</span> a = moment();
+<span>var</span> b = moment.utc();
+a.format();  <span>// 2013-02-04T10:35:24-08:00</span>
+b.format();  <span>// 2013-02-04T18:35:24+00:00</span>
+a.valueOf(); <span>// 1360002924000</span>
+b.valueOf(); <span>// 1360002924000</span></pre></div><p>Any moment created with <code>moment.utc()</code> will be in UTC mode, and any moment created with <code>moment()</code> will not.</p><p>To switch from UTC to local time, you can use <a>moment#utc</a> or <a>moment#local</a>.</p><div><pre><span>var</span> a = moment.utc([<span>2011</span>, <span>0</span>, <span>1</span>, <span>8</span>]);
+a.hours(); <span>// 8 UTC</span>
+a.local();
+a.hours(); <span>// 0 PST</span></pre></div></div>
+ * @return
+ */
+public static final native Moment utc(Date date)/*-{
+return $wnd.moment.utc(@org.sgx.jsutil.client.JsUtil::toJsDate(Ljava/util/Date;)(date));
 }-*/;
 
 
@@ -2508,7 +2549,7 @@ moment.duration(<span>2</span>, <span>'years'</span>);
  * @param i
  * @return
  */
-public static final native Duration duration(int i)/*-{
+public static final native Duration Duration(int i)/*-{
 return $wnd.moment.duration(i);
 }-*/;
 /**
@@ -2534,8 +2575,88 @@ moment.duration(<span>2</span>, <span>'years'</span>);
  * @param i
  * @return
  */
-public static final native Duration duration(int i, String s)/*-{
+public final native Duration duration(int i)/*-{
+return this.duration(i);
+}-*/;
+
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration Duration(int i, String s)/*-{
 return $wnd.moment.duration(i, s);
+}-*/;
+
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration duration(int i, String s)/*-{
+return this.duration(i, s);
+}-*/;
+/**
+ * <pre>moment.duration(Number, String);
+moment.duration(Number);
+moment.duration(Object);</pre><p>To create a duration, call <code>moment.duration()</code> with the length of time in milliseconds.</p><div><pre>moment.duration(<span>100</span>); <span>// 100 milliseconds</span></pre></div><p>If you want to create a moment with a unit of measurement other than seconds, you can pass the unit of measurement as well.</p><div><pre>moment.duration(<span>2</span>, <span>'seconds'</span>);
+moment.duration(<span>2</span>, <span>'minutes'</span>);
+moment.duration(<span>2</span>, <span>'hours'</span>);
+moment.duration(<span>2</span>, <span>'days'</span>);
+moment.duration(<span>2</span>, <span>'weeks'</span>);
+moment.duration(<span>2</span>, <span>'months'</span>);
+moment.duration(<span>2</span>, <span>'years'</span>);
+</pre></div><p>The same shorthand for <code>moment#add</code> and <code>moment#subtract</code> works here as well.</p><table><tbody><tr><th>Key</th><th>Shorthand</th></tr><tr><td>years</td><td>y</td></tr><tr><td>months</td><td>M</td></tr><tr><td>weeks</td><td>w</td></tr><tr><td>days</td><td>d</td></tr><tr><td>hours</td><td>h</td></tr><tr><td>minutes</td><td>m</td></tr><tr><td>seconds</td><td>s</td></tr><tr><td>milliseconds</td><td>ms</td></tr></tbody></table><p>Much like <code>moment#add</code>, you can pass an object of values if you need multiple different units of measurement.</p><div><pre>moment.duration({
+    seconds: <span>2</span>,
+    minutes: <span>2</span>,
+    hours: <span>2</span>,
+    days: <span>2</span>,
+    weeks: <span>2</span>,
+    months: <span>2</span>,
+    years: <span>2</span>
+});
+</pre></div>
+ * @param i
+ * @return
+ */
+public static final native Duration Duration(DurationData d)/*-{
+return $wnd.moment.duration(d);
 }-*/;
 /**
  * <pre>moment.duration(Number, String);
@@ -2561,6 +2682,8 @@ moment.duration(<span>2</span>, <span>'years'</span>);
  * @return
  */
 public static final native Duration duration(DurationData d)/*-{
-return $wnd.moment.duration(d);
+return this.duration(d);
 }-*/;
+
+
 }

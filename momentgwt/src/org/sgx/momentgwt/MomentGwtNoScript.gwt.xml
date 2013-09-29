@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1.rc1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1.rc1/distro-source/core/src/gwt-module.dtd">
 <module>
-	<inherits name="com.google.gwt.user.User" />	
-	<inherits name="org.sgx.momentgwt.MomentGwtNoScript" />	
+	<inherits name="org.sgx.jsutil.JsUtil" />
 	<source path="client" />
-	<entry-point class="org.sgx.momentgwttest1.client.MomentGwtTest1EP"></entry-point>
+	<entry-point class="org.sgx.momentgwt.client.MomentGwtNoScriptEntryPoint"></entry-point>
 </module> 

@@ -16,8 +16,10 @@ public class MomentGwtTest1EP implements EntryPoint {
 	private void test1() {
 		System.out.println(Moment.moment());
 		System.out.println(Moment.moment(new Date()).add(2, "days").format("MMMM Do YYYY, h:mm:ss a"));
-		
-		new InternationalizationTest1().test1(); 
+		System.out.println("from french: "+ Moment.moment("2012 juillet", "YYYY MMM", "fr"));
+		System.out.println("utc: "+Moment.moment().utc());
+		System.out.println("utc2: "+Moment.moment().utc(new int[]{2010, 1, 14, 15, 25, 50, 125}));		
+//		new InternationalizationTest1().test1(); 
 	}
 
 }
